@@ -14,3 +14,10 @@ The CreateFas() function creates a fasta file with all the sequences in the data
 The CreateSamplesFas() function creates a fasta file for each sample in the data set.
 
 Version 1.0.0 is the initial release of the R package MHCtools. 
+
+
+October 23rd 2017
+
+MHCtools Version 1.1.0 
+
+This update adds the new function MeanPdist() to the R package 'MHCtools'. The MeanPdist() function calculates the mean p-distance from pairwise comparisons of the sequences in each sample in a data set. The function includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codon positions involved in specific functions such as the peptide-binding of an MHC molecule.

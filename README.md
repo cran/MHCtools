@@ -2,7 +2,7 @@
 
 **Welcome to the R package MHCtools**
 
-This package contains a set of nine tools for analysis of major histocompatibility complex (MHC) data in non-model species. The functions are tailored for amplicon data sets that have been filtered using the 'dada2' method (for more information visit <https://benjjneb.github.io/dada2>). Each of the functions are described below. For usage examples, please inspect the help pages for each function.
+This package contains a set of ten tools for analysis of major histocompatibility complex (MHC) data in non-model species. The functions are tailored for amplicon data sets that have been filtered using the 'dada2' method (for more information visit <https://benjjneb.github.io/dada2>). Each of the functions are described below. For usage examples, please inspect the help pages for each function.
 ***
 **Exporting FASTA files**
 
@@ -37,5 +37,11 @@ The PapaDiv() function is useful for heritability analyses in non-model species,
 The PapaDiv() function outputs a set of R lists containing for the joint diversity of each parent pair, the proportion of sequences that are shared between the parents, the diversity of each of the parents, the observed sequence variants in each parent, the matched sequence variants, and the incongruent sequence variants in each parent.
 
 For downstream data analysis, the PapaDiv() function produces a summary table with the names of the parents in a pair, their respective MHC diversities, and the joint parent pair diversity.
+***
+**Mean p-distance**
+
+The MeanPdist() function is useful for calculating mean p-distances of samples that contain multiple homologous sequences, as is often seen for MHC sequencing data of specific classes (e.g. class I or class II) in non-model species. The function calculates the mean of the p-distances from all pairwise comparisons of the sequences in each sample. It includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codon positions involved in specific functions such as the peptide-binding of an MHC molecule.
+
+The MeanPdist() function outputs a table with the mean p-distance for each sample in the data set.
 ***
 *Copyright Jacob Roved*
