@@ -21,3 +21,10 @@ October 23rd 2017
 MHCtools Version 1.1.0 
 
 This update adds the new function MeanPdist() to the R package 'MHCtools'. The MeanPdist() function calculates the mean p-distance from pairwise comparisons of the sequences in each sample in a data set. The function includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codon positions involved in specific functions such as the peptide-binding of an MHC molecule.
+
+
+February 4th 2019
+
+MHCtools Version 1.1.1 
+
+This update fixes bugs in the HpltFind and PapaDiv functions. Furthermore, a minor modification of the functions GetHpltTable and GetReplTable ensures that results are presented according to nest or replicate number, respectively (previous versions presented them in alphanumeric order).

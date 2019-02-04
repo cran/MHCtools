@@ -172,7 +172,7 @@ PapaDiv <- function(parents_table, seq_table, path_out) {
 
   Summary_table <- as.data.frame(cbind(paste(parents_table[,1]), paste(parents_table[,2]), Mother_div, Father_div, Joint_div, Pr_match))
 
-  rownames(Summary_table) <- seq(1:57)
+  rownames(Summary_table) <- seq(1:length(parents_table[,1]))
   colnames(Summary_table) <- c("Mother", "Father", "Mother_diversity", "Father_diversity", "Joint_pair_diversity", "Prop_matching_seqs")
 
   write.csv(Summary_table,file=paste(path_out,"/Parent_pair_diversity_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep=""))

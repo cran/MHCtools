@@ -79,7 +79,7 @@ HpltFind <- function(nest_table, seq_table, path_out) {
 
     for (j in 3:length(Nest_samples)) {
 
-      Chick_names[j-2] <- paste(Nest_samples[j])
+      Chick_names[(j-2)] <- paste(Nest_samples[j])
 
     }
 
@@ -173,119 +173,123 @@ HpltFind <- function(nest_table, seq_table, path_out) {
     P2A <- CP2[[1]]
 
 
-    for (j in 2:No_Chicks) {
+    if (No_Chicks > 1) {
 
-      # Logical vectors with the congruence between CP1[[j]] and P1A
+      for (j in 2:No_Chicks) {
 
-      x <- CP1[[j]] %in% P1A
-      y <- P1A %in% CP1[[j]]
+        # Logical vectors with the congruence between CP1[[j]] and P1A
 
-      # If proportion of matches in comparisons between CP1[[j]] and P1A > 0.8,
-      # do
+        x <- CP1[[j]] %in% P1A
+        y <- P1A %in% CP1[[j]]
 
-      if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > 0.8) {
+        # If proportion of matches in comparisons between CP1[[j]] and P1A > 0.8,
+        # do
 
-        for (Seq in CP1[[j]]) {
-
-          # If Seq is not present in P1A, do
-
-          if (Seq %in% P1A == FALSE) {
-
-            # Append Seq to P1A
-            P1A <- append(P1A, Seq)
-
-            # Append Seq to P1Ainc
-            P1Ainc <- append(P1Ainc, Seq)
-
-          }
-
-        }
-
-      } else {
-
-        # If no sequences were yet assigned to the P1B haplotype, it gets the
-        # sequences from CP1[[j]]
-
-        if (length(P1B)==0) {
-
-          P1B <- CP1[[j]]
-
-        } else {
+        if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > 0.8) {
 
           for (Seq in CP1[[j]]) {
 
-            # If Seq is not present in P1B, do
+            # If Seq is not present in P1A, do
 
-            if (Seq %in% P1B == FALSE) {
+            if (Seq %in% P1A == FALSE) {
 
-              # Append Seq to P1B
-              P1B <- append(P1B, Seq)
+              # Append Seq to P1A
+              P1A <- append(P1A, Seq)
 
-              # Append Seq to P1Binc
-              P1Binc <- append(P1Binc, Seq)
+              # Append Seq to P1Ainc
+              P1Ainc <- append(P1Ainc, Seq)
 
             }
 
           }
-
-        }
-
-      }
-
-    }
-
-
-
-    for (j in 2:No_Chicks) {
-
-      # Logical vectors with the congruence between CP2[[j]] and P2A
-
-      x <- CP2[[j]] %in% P2A
-      y <- P2A %in% CP2[[j]]
-
-      # If proportion of matches in comparisons between CP2[[j]] and P2A > 0.8,
-      # do
-
-      if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > 0.8) {
-
-        for (Seq in CP2[[j]]) {
-
-          # If Seq is not present in P2A, do
-
-          if (Seq %in% P2A == FALSE) {
-
-            # Append Seq to P2A
-            P2A <- append(P2A, Seq)
-
-            # Append Seq to P2Ainc
-            P2Ainc <- append(P2Ainc, Seq)
-
-          }
-
-        }
-
-      } else {
-
-        # If no sequences were yet assigned to the P2B haplotype, it gets the
-        # sequences from CP2[[j]]
-
-        if (length(P2B)==0) {
-
-          P2B <- CP2[[j]]
 
         } else {
 
+          # If no sequences were yet assigned to the P1B haplotype, it gets the
+          # sequences from CP1[[j]]
+
+          if (length(P1B)==0) {
+
+            P1B <- CP1[[j]]
+
+          } else {
+
+            for (Seq in CP1[[j]]) {
+
+              # If Seq is not present in P1B, do
+
+              if (Seq %in% P1B == FALSE) {
+
+                # Append Seq to P1B
+                P1B <- append(P1B, Seq)
+
+                # Append Seq to P1Binc
+                P1Binc <- append(P1Binc, Seq)
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+
+
+      for (j in 2:No_Chicks) {
+
+        # Logical vectors with the congruence between CP2[[j]] and P2A
+
+        x <- CP2[[j]] %in% P2A
+        y <- P2A %in% CP2[[j]]
+
+        # If proportion of matches in comparisons between CP2[[j]] and P2A > 0.8,
+        # do
+
+        if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > 0.8) {
+
           for (Seq in CP2[[j]]) {
 
-            # If Seq is not present in P2B, do
+            # If Seq is not present in P2A, do
 
-            if (Seq %in% P2B == FALSE) {
+            if (Seq %in% P2A == FALSE) {
 
-              # Append Seq to P2B
-              P2B <- append(P2B, Seq)
+              # Append Seq to P2A
+              P2A <- append(P2A, Seq)
 
-              # Append Seq to P2Binc
-              P2Binc <- append(P2Binc, Seq)
+              # Append Seq to P2Ainc
+              P2Ainc <- append(P2Ainc, Seq)
+
+            }
+
+          }
+
+        } else {
+
+          # If no sequences were yet assigned to the P2B haplotype, it gets the
+          # sequences from CP2[[j]]
+
+          if (length(P2B)==0) {
+
+            P2B <- CP2[[j]]
+
+          } else {
+
+            for (Seq in CP2[[j]]) {
+
+              # If Seq is not present in P2B, do
+
+              if (Seq %in% P2B == FALSE) {
+
+                # Append Seq to P2B
+                P2B <- append(P2B, Seq)
+
+                # Append Seq to P2Binc
+                P2Binc <- append(P2Binc, Seq)
+
+              }
 
             }
 
@@ -296,7 +300,6 @@ HpltFind <- function(nest_table, seq_table, path_out) {
       }
 
     }
-
 
     ### Now the proportions of sequences that are incongruent in the chicks can
     ### be calculated (i.e. sequences that were found in a chick, but were
@@ -426,7 +429,7 @@ HpltFind <- function(nest_table, seq_table, path_out) {
 
     names(Pinc) <- Parent_names
 
-    Inc_Seqs <- list(P1Ainc, P1B, P2Ainc, P2Binc, Cinc, Pinc)
+    Inc_Seqs <- list(P1Ainc, P1Binc, P2Ainc, P2Binc, Cinc, Pinc)
 
     names(Inc_Seqs) <- c(paste(Parent_names[1], "A", sep=""), paste(Parent_names[1], "B", sep=""), paste(Parent_names[2], "A", sep=""), paste(Parent_names[2], "B", sep=""),"Chicks","Parents")
 

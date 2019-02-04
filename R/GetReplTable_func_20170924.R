@@ -21,6 +21,10 @@ GetReplTable <- function(filepath) {
 
   file_names <- dir(filepath)
 
+  # Sort the file names by  nest number
+
+  file_names <- file_names[order(as.numeric(gsub("[^0-9]", "", file_names)))]
+
   mean_props <- numeric()
 
   # Extract the mean proportion of incongruent sequences for each replicate set
