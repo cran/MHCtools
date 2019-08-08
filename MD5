@@ -1,7 +1,8 @@
-22da8dfece3cd2b022f7615290667ddc *DESCRIPTION
+6bf8caff7a1eecce75f4e970b2123796 *DESCRIPTION
 82e93d178459d124a45d7e65c216deb8 *LICENSE
-110b77ef61fc8c0695425c3da8b73a8a *NAMESPACE
-468ac5a6d850953d4972b13c41996d21 *NEWS.md
+23f1563755a6d47d2a86227db5c0c506 *NAMESPACE
+c96450f195f0853917bbb978da68cdae *NEWS.md
+34a2963d28da8b0e8c19c7ca6c33ada2 *R/CalcPdist_func_20171023.R
 cbacb34ceb72509a8c1d7d6114f85c50 *R/CreateFas_func_20170924.R
 ee11691edd1a31566f48ec7f1a6f45c2 *R/CreateSamplesFas_func_20170924.R
 b8ec9799b697f1a3eff19c00c4646946 *R/GetHpltStats_func_20170924.R
@@ -9,16 +10,15 @@ b8ec9799b697f1a3eff19c00c4646946 *R/GetHpltStats_func_20170924.R
 a95fd06215a357f245a993254c475728 *R/GetReplStats_func_20170924.R
 263aa816ad14a7f78d9ba3b91bba0a48 *R/GetReplTable_func_20170924.R
 111bcf2bcdc3b5a5bf003eb79819a9df *R/HpltFind_func_20170924.R
-1ad0a9b96c99eaca788b35570f48d564 *R/MeanPdist_func_20171023.R
 b4c98ce75b08dbaaf03d850a28d394d1 *R/PapaDiv_func_20170924.R
-8125f02905c9e951e01890208d996778 *R/ReplMatch_func_20170924.R
+bbeca0c3d4bc32cb283044653d558d43 *R/ReplMatch_func_20170924.R
 229c3f003a8af637e9ba6b74ef368e85 *R/nest_table.R
 238b6d2eb4167dbf2e79429f2b6c6782 *R/parents_table.R
 3bd133932ecd607b6e51e58bee4b52c2 *R/replicates_table.R
 7d626fbfdf3807df677649ab9d668fc3 *R/sequence_table.R
 5720a79564fc7ebb3d537d449ebf56fc *R/sequence_table_fas.R
 48ac98881d7bf956c60de3dd377742e2 *R/sequence_table_repl.R
-c0fe6772b3a385615af03f7900004755 *README.md
+046c2b420ef8fefa86a692b553f9c63a *README.md
 6d7f534c3756e1d2fce6ab4970540571 *data/nest_table.rda
 8688a1db4a2cbc09fe57327798733504 *data/parents_table.rda
 480fe83a822ecc01ef093405e675d4c4 *data/replicates_table.rda
@@ -109,6 +109,7 @@ c71552b303a71ba4ed2ef21809bf0f98 *inst/extdata/ReplMatchOut/Repl_set_5_20170928.
 47ede3ebeb40d9ae1081feab0f5d724f *inst/extdata/ReplMatchOut/Repl_set_7_20170928.rdata
 09d91545a067d5c63780313447bb24c6 *inst/extdata/ReplMatchOut/Repl_set_8_20170928.rdata
 55723c813618729258d2c6fcc362cfd4 *inst/extdata/ReplMatchOut/Repl_set_9_20170928.rdata
+cb575820ea91c02164e4a577c88d8a4f *man/CalcPdist.Rd
 da42013a7b3d4401e295e47238d721d4 *man/CreateFas.Rd
 0980a799a3b4180265fc38684b68a045 *man/CreateSamplesFas.Rd
 8436da3a5700ec0847b3c1fa5abec3f9 *man/GetHpltStats.Rd
@@ -116,7 +117,6 @@ e28254ae109901a080bc329174845396 *man/GetHpltTable.Rd
 c31e77f3f37884ce40eb7e75d487db53 *man/GetReplStats.Rd
 3cfbf4b9f7d169e0c28259d737cb4d68 *man/GetReplTable.Rd
 5fbb5de4bde1836e311c359aca9e019e *man/HpltFind.Rd
-60ecb7738dad8a6ac6d765aaea6c644b *man/MeanPdist.Rd
 6fe6dbd5c202b70c2144bae739d137ec *man/PapaDiv.Rd
 c2ed5ad52498804545837f62a68ba5ed *man/ReplMatch.Rd
 ce9e95fbb43ed2721765e5e3d8df3a82 *man/nest_table.Rd

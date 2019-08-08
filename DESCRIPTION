@@ -1,7 +1,7 @@
 Package: MHCtools
 Type: Package
 Title: Analysis of MHC Data in Non-Model Species
-Version: 1.1.1
+Version: 1.2.0
 Authors@R: person("Jacob", "Roved", email = "jacob.roved@biol.lu.se", 
     role = c("aut", "cre"))
 Description: Ten tools for analysis of major histocompatibility complex (MHC) data in non-
@@ -19,9 +19,10 @@ Description: Ten tools for analysis of major histocompatibility complex (MHC) da
     The PapaDiv() function compares parent pairs in the data set and calculate their 
     joint MHC diversity, taking into account sequence variants that occur in both 
     parents.
-    The MeanPdist() function calculates the mean p-distance from pairwise 
-    comparisons sequences in each sample in a data set. The function includes the 
-    option to specify which codons to compare.
+    The CalcPdist() function calculates the p-distances from pairwise comparisons of all 
+    sequences in a data set, and mean p-distances of all pairwise comparisons within each 
+    sample in a data set. The function includes the options to specify which codons to 
+    compare and to calculate amino acid p-distances.
     The CreateFas() function creates a fasta file with all the sequences in the data 
     set.
     The CreateSamplesFas() function creates a fasta file for each sample in the data 
@@ -32,8 +33,8 @@ LazyData: true
 Imports: rlist (>= 0.4.6.1), utils
 RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2019-02-04 20:02:25 UTC; jacobroved
+Packaged: 2019-08-08 14:49:56 UTC; jacobroved
 Author: Jacob Roved [aut, cre]
 Maintainer: Jacob Roved <jacob.roved@biol.lu.se>
 Repository: CRAN
-Date/Publication: 2019-02-04 21:03:34 UTC
+Date/Publication: 2019-08-08 16:40:05 UTC

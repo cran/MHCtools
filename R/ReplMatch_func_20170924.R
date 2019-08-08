@@ -40,7 +40,7 @@
 
 ReplMatch <- function(repl_table, seq_table, path_out) {
 
-  # The dada2 sequence table does not use sequences names, but identifies
+  # The dada2 sequence table does not use sequence names, but identifies
   # sequence variants by their nuceotide sequence. Here I create a vector for
   # naming the sequences by their column number in the seq_table
 

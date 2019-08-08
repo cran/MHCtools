@@ -38,10 +38,12 @@ The PapaDiv() function outputs a set of R lists containing for the joint diversi
 
 For downstream data analysis, the PapaDiv() function produces a summary table with the names of the parents in a pair, their respective MHC diversities, and the joint parent pair diversity.
 ***
-**Mean p-distance**
+**P-distance calculations**
 
-The MeanPdist() function is useful for calculating mean p-distances of samples that contain multiple homologous sequences, as is often seen for MHC sequencing data of specific classes (e.g. class I or class II) in non-model species. The function calculates the mean of the p-distances from all pairwise comparisons of the sequences in each sample. It includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codon positions involved in specific functions such as the peptide-binding of an MHC molecule.
+The CalcPdist() function is useful for calculating p-distances from pairwise sequence comparisons.
 
-The MeanPdist() function outputs a table with the mean p-distance for each sample in the data set.
+The CalcPdist() function takes a dada2 sequence table or a fasta file as input and produces a matrix with all pairwise p-distances for all sequences in the data set. If a dada2 sequence table is provided as input, the function furthermore produces a table with the mean p-distance from all pairwise comparisons of the sequences in each sample in the data set. 
+
+It includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codon positions involved in specific functions such as the peptide-binding of an MHC molecule. It also includes an option to calculate amino acid p-distances from protein-coding sequences using a standard genetic code.
 ***
 *Copyright Jacob Roved*
