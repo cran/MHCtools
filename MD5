@@ -1,8 +1,8 @@
-6bf8caff7a1eecce75f4e970b2123796 *DESCRIPTION
+7a0632bd1d353499d99cd436ab87a829 *DESCRIPTION
 82e93d178459d124a45d7e65c216deb8 *LICENSE
 23f1563755a6d47d2a86227db5c0c506 *NAMESPACE
-c96450f195f0853917bbb978da68cdae *NEWS.md
-34a2963d28da8b0e8c19c7ca6c33ada2 *R/CalcPdist_func_20171023.R
+bdd6af686896889fd8e027d8aef7457e *NEWS.md
+8d608a8c7c334eef9930e5e1e406b031 *R/CalcPdist_func_20171023.R
 cbacb34ceb72509a8c1d7d6114f85c50 *R/CreateFas_func_20170924.R
 ee11691edd1a31566f48ec7f1a6f45c2 *R/CreateSamplesFas_func_20170924.R
 b8ec9799b697f1a3eff19c00c4646946 *R/GetHpltStats_func_20170924.R
@@ -109,7 +109,7 @@ c71552b303a71ba4ed2ef21809bf0f98 *inst/extdata/ReplMatchOut/Repl_set_5_20170928.
 47ede3ebeb40d9ae1081feab0f5d724f *inst/extdata/ReplMatchOut/Repl_set_7_20170928.rdata
 09d91545a067d5c63780313447bb24c6 *inst/extdata/ReplMatchOut/Repl_set_8_20170928.rdata
 55723c813618729258d2c6fcc362cfd4 *inst/extdata/ReplMatchOut/Repl_set_9_20170928.rdata
-cb575820ea91c02164e4a577c88d8a4f *man/CalcPdist.Rd
+94a86238b67cbfabbd32380274bb9a5c *man/CalcPdist.Rd
 da42013a7b3d4401e295e47238d721d4 *man/CreateFas.Rd
 0980a799a3b4180265fc38684b68a045 *man/CreateSamplesFas.Rd
 8436da3a5700ec0847b3c1fa5abec3f9 *man/GetHpltStats.Rd

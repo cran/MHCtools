@@ -19,11 +19,14 @@
 #' @param input_fasta optional, a logical (TRUE/FALSE) that indicates whether
 #'   the input file is a fasta file (TRUE) or a dada2 sequence table
 #'   (NULL/FALSE), default is NULL/FALSE.
-#' @return If a sequence table is given as input file, the function returns a
-#'   table with the mean p-distance for each sample. Additionally, the function
-#'   produces a matrix with p-distance values of all pairwise sequence
-#'   comparisons. This table is saved as a .csv file in the output path. If a
-#'   fasta file is used as input, only the p-distance matrix will be produced.
+#' @return The function returns a matrix with p-distances of all pairwise
+#'   sequence comparisons. This table is saved as a .csv file in the output path.
+#'   If a fasta file is used as input, only the p-distance matrix will be
+#'   produced. If a sequence table is given as input file, the function
+#'   additionally returns a table with the mean p-distance for each sample. If a
+#'   sequence table is given as input file, the sequences are named in the
+#'   output matrix by an index number corresponding to their column number in
+#'   the sequence table.
 #' @seealso For more information about 'dada2'visit
 #'   <https://benjjneb.github.io/dada2>
 #' @examples
@@ -39,6 +42,14 @@ CalcPdist <- function(seq_file,path_out,aa_pdist=NULL,codon_pos=NULL,input_fasta
 
   if(is.null(input_fasta) || isFALSE(input_fasta)) {
 
+    # The dada2 sequence table does not use sequences names, but identifies
+    # sequence variants by their nuceotide sequence. Here I create a vector for
+    # naming the sequences by their column number in the seq_table
+
+    seq_names <- vector("character", length=length(colnames(seq_file)))
+
+    seq_names <- paste("Sequence_", seq(1:length(colnames(seq_file))), sep = "")
+
     # Extract the sample names to a new vector
 
     sample_names <- rownames(seq_file)
@@ -50,8 +61,8 @@ CalcPdist <- function(seq_file,path_out,aa_pdist=NULL,codon_pos=NULL,input_fasta
     # create a matrix that will contain the pairwise p-distance between all the sequences in the sequence table
 
     pdist_matrix <- as.data.frame(matrix(nrow=length(colnames(seq_file)),ncol=length(colnames(seq_file))))
-    rownames(pdist_matrix) <- colnames(seq_file)
-    colnames(pdist_matrix) <- colnames(seq_file)
+    rownames(pdist_matrix) <- seq_names
+    colnames(pdist_matrix) <- seq_names
 
     # Create a vector seq_list containing all the sequences in seq_file, using
     # the strsplit() function to split the nucleotides in each sequence into

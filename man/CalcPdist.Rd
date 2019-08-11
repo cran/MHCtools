@@ -29,11 +29,14 @@ the input file is a fasta file (TRUE) or a dada2 sequence table
 (NULL/FALSE), default is NULL/FALSE.}
 }
 \value{
-If a sequence table is given as input file, the function returns a
-  table with the mean p-distance for each sample. Additionally, the function
-  produces a matrix with p-distance values of all pairwise sequence
-  comparisons. This table is saved as a .csv file in the output path. If a
-  fasta file is used as input, only the p-distance matrix will be produced.
+The function returns a matrix with p-distances of all pairwise
+  sequence comparisons. This table is saved as a .csv file in the output path.
+  If a fasta file is used as input, only the p-distance matrix will be
+  produced. If a sequence table is given as input file, the function
+  additionally returns a table with the mean p-distance for each sample. If a
+  sequence table is given as input file, the sequences are named in the
+  output matrix by an index number corresponding to their column number in
+  the sequence table.
 }
 \description{
 \code{\link{CalcPdist}} calculates p-distances from pairwise sequence

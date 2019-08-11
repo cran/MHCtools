@@ -4,7 +4,7 @@ September 29 2017
 
 Welcome to the R package MHCtools
 
-This new R package contains nine useful functions for analysis of major histocompatibility complex (MHC) data in non-model species. The functions are tailored for amplicon data sets that have been filtered using the 'dada2' pipeline (for more information visit <https://benjjneb.github.io/dada2>), but even other data sets can be analysed, if the data tables are formatted according to the description in each function.
+This new R package contains nine useful functions for analysis of major histocompatibility complex (MHC) data in non-model species. The functions are tailored for amplicon data sets that have been filtered using the 'dada2' pipeline (for more information visit <https://benjjneb.github.io/dada2>), but even other data sets can be analyzed, if the data tables are formatted according to the description in each function.
 The ReplMatch() function matches replicates in data sets in order to evaluate genotyping success.
 The GetReplTable() and GetReplStats() functions perform such an evaluation.
 The HpltFind() function infers putative haplotypes from families in the data set. 
@@ -35,3 +35,9 @@ August 8th 2019
 MHCtools Version 1.2.0
 
 This update replaces the MeanPdist() function with the new function CalcPdist(), which has more universal applications. The CalcPdist function produces a matrix with p-distances from pairwise comparisons of all sequences in an input file. If a dada2 sequence table is used as input, the function furthermore produces a table with mean p-distances for each sample in the data set. Optionally, amino acid p-distances may be calculated, based on the standard genetic code. The function furthermore includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codon positions involved in specific functions such as the peptide-binding of an MHC molecule. Input files may be either a fasta file (fasta files are accepted in the format rendered by e.g. the read.fasta() function from the package 'seqinr') or a dada2 sequence table.
+
+August 8th 2019
+
+MHCtools Version 1.2.1
+
+This update provides a minor modification of the CalcPdist() function, so that when a dada2 sequence table is used as input, sequences are now named by an index number (corresponding to their column number in the input table) in the p-distance matrix.
