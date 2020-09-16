@@ -4,8 +4,10 @@
 \name{nest_table}
 \alias{nest_table}
 \title{Data nest_table}
-\format{nest_table is a data frame with 213 samples in rows and 2 columns:
-  \describe{ \item{Sample_ID}{Sample ID} \item{Nest}{Nest index number} }}
+\format{
+nest_table is a data frame with 213 samples in rows and 2 columns:
+  \describe{ \item{Sample_ID}{Sample ID} \item{Nest}{Nest index number} }
+}
 \source{
 original data.
 }

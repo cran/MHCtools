@@ -23,6 +23,14 @@ A FASTA file with all the sequences in a 'dada2' sequence table. The
 \code{\link{CreateFas}} creates a FASTA file with all the sequences in a
 'dada2' sequence table.
 }
+\details{
+If you publish data produced with MHCtools, please cite:
+Roved, J. 2020. MHCtools: Analysis of MHC data in non-model species. Cran.
+Roved, J., Hansson, B., Stervander, M., Hasselquist, D., Westerdahl, H. 2020.
+Non-random association of MHC-I alleles in favor of high diversity haplotypes
+in wild songbirds revealed by computer-assisted MHC haplotype inference using
+the R package MHCtools. bioRxiv.
+}
 \examples{
 seq_table <- sequence_table_fas
 path_out <- tempdir()
@@ -30,5 +38,5 @@ CreateFas(seq_table, path_out)
 }
 \seealso{
 \code{\link{CreateSamplesFas}}; for more information about 'dada2'
-  visit <https://benjjneb.github.io/dada2>
+  visit <https://benjjneb.github.io/dada2/>
 }

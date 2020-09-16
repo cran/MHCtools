@@ -4,9 +4,11 @@
 \name{replicates_table}
 \alias{replicates_table}
 \title{Data replicates_table}
-\format{replicates_table is a data frame with 111 technical replicate samples
+\format{
+replicates_table is a data frame with 111 technical replicate samples
   in rows and 2 columns: \describe{ \item{Sample_ID}{Technical replicate
-  sample ID} \item{Replic_set}{Index number of replicate set} }}
+  sample ID} \item{Replic_set}{Index number of replicate set} }
+}
 \source{
 original data.
 }

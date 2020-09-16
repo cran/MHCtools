@@ -4,8 +4,10 @@
 \name{sequence_table_repl}
 \alias{sequence_table_repl}
 \title{Data sequence_table_repl}
-\format{sequence_table_repl is a data frame with 412 samples in rows and 511
-  DNA sequence variants in columns.}
+\format{
+sequence_table_repl is a data frame with 412 samples in rows and 511
+  DNA sequence variants in columns.
+}
 \source{
 original data.
 }

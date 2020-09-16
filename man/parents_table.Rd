@@ -4,8 +4,10 @@
 \name{parents_table}
 \alias{parents_table}
 \title{Data parents_table}
-\format{parents_table is a data frame with 57 parent pairs in rows and 2
-  columns: \describe{ \item{Mother}{Mother ID} \item{Father}{Father ID} }}
+\format{
+parents_table is a data frame with 57 parent pairs in rows and 2
+  columns: \describe{ \item{Mother}{Mother ID} \item{Father}{Father ID} }
+}
 \source{
 original data.
 }
