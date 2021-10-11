@@ -1200,9 +1200,9 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
           # Calculate the amino acid Pdist in each pairwise comparison of the sequences
           # in seq_list
 
-          for (i in 1:(length(colnames(seq_file))-1)) {
+          for (i in 1:(length(names(seq_file))-1)) {
 
-            for (j in (i+1):length(colnames(seq_file))) {
+            for (j in (i+1):length(names(seq_file))) {
 
               dist_matrix[i,j] <- round(length(which(seq_file[[i]] != seq_file[[j]]))/length(seq_file[[i]]), digits=5)
 
@@ -1223,9 +1223,9 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
             # Calculate the amino acid Pdist in each pairwise comparison of the sequences
             # in seq_file, using the vector codon_pos to define which codons to compare
 
-            for (i in 1:(length(colnames(seq_file))-1)) {
+            for (i in 1:(length(names(seq_file))-1)) {
 
-              for (j in (i+1):length(colnames(seq_file))) {
+              for (j in (i+1):length(names(seq_file))) {
 
                 dist_matrix[i,j] <- round(length(which(seq_file[[i]][codon_pos] != seq_file[[j]][codon_pos]))/length(seq_file[[i]][codon_pos]), digits=5)
 
