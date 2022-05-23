@@ -7,12 +7,13 @@
 #' functions GetHpltTable() and GetHpltStats() are designed to evaluate the
 #' output files.
 #'
-#' If you publish data produced with MHCtools, please cite:
-#' Roved, J. 2020. MHCtools: Analysis of MHC data in non-model species. Cran.
-#' Roved, J., Hansson, B., Stervander, M., Hasselquist, D., Westerdahl, H. 2020.
-#' Non-random association of MHC-I alleles in favor of high diversity haplotypes
-#' in wild songbirds revealed by computer-assisted MHC haplotype inference using
-#' the R package MHCtools. bioRxiv.
+#' If you publish data or results produced with MHCtools, please cite both of
+#' the following references:
+#' Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
+#' Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022.
+#' MHCtools – an R package for MHC high‐throughput sequencing data: genotyping,
+#' haplotype and supertype inference, and downstream genetic analyses in non‐model
+#' organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
 #'
 #' @param nest_table is a table containing the sample names of parents and
 #'   offspring in each nest. This table should be organized so that the

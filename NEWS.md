@@ -71,3 +71,13 @@ To evaluate which of the bootstrapped k-means models is most accurate and/or inf
 MHCtools Version 1.4.1  
 
 This update fixes a bug in the DistCalc() function, which caused an error when attempting to calculate p-distances from a fasta file of amino acid sequences.  
+
+### May 23rd, 2022  
+
+MHCtools Version 1.4.2  
+
+This version provides the following citation details following presentation of MHCtools in Molecular Ecology Resources:  
+Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. (2022). MHCtools – an R package for MHC high‐throughput sequencing data: genotyping, haplotype and supertype inference, and downstream genetic analyses in non‐model organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
+
+
+

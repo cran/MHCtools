@@ -52,6 +52,12 @@ To evaluate the output, the GetReplTable() function will use the output files to
 
 CreateFas() and CreateSamplesFas() are two simple, but useful tools. The CreateFas() function creates a fasta file with all the sequences from a 'dada2'-style sequence occurrence table. The CreateSamplesFas() function similarly creates a fasta file for each sample in the table.  
   
+### Citation
+  
+If you publish data or results produced with MHCtools, please cite both of the following references: 
+Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran. 
+Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022. MHCtools – an R package for MHC high‐throughput sequencing data: genotyping, haplotype and supertype inference, and downstream genetic analyses in non‐model organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645  
+
 ### References  
 
 Callahan, B.J., Mcmurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., Holmes, S.P. 2016. DADA2: High-resolution sample inference from Illumina amplicon data. Nat. Methods 13.  
