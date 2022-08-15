@@ -12,8 +12,8 @@
 #' the following references:
 #' Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
 #' Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022.
-#' MHCtools – an R package for MHC high‐throughput sequencing data: genotyping,
-#' haplotype and supertype inference, and downstream genetic analyses in non‐model
+#' MHCtools - an R package for MHC high-throughput sequencing data: genotyping,
+#' haplotype and supertype inference, and downstream genetic analyses in non-model
 #' organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
 #'
 #' @param parents_table is a table containing the sample names of the parents in

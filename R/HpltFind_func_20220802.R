@@ -11,8 +11,8 @@
 #' the following references:
 #' Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
 #' Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022.
-#' MHCtools – an R package for MHC high‐throughput sequencing data: genotyping,
-#' haplotype and supertype inference, and downstream genetic analyses in non‐model
+#' MHCtools - an R package for MHC high-throughput sequencing data: genotyping,
+#' haplotype and supertype inference, and downstream genetic analyses in non-model
 #' organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
 #'
 #' @param nest_table is a table containing the sample names of parents and
@@ -25,6 +25,15 @@
 #' @param seq_table seq_table is a sequence table as output by the 'dada2'
 #'   pipeline, which has samples in rows and nucleotide sequence variants in
 #'   columns.
+#' @param alpha a numerical value between 0 and 1 (default 0.8) specifying a
+#'   threshold by which a set of sequences overlapping between a chick and a
+#'   parent will be assigned to the putative parental A haplotype or passed to
+#'   the B haplotype. Typical values are in the range 0.6-0.9. In data sets with
+#'   many different MHC alleles per individual (i.e. many MHC gene copies), alpha
+#'   may be set high. In data sets with fewer MHC alleles per individual, it
+#'   should be set lower. A range of alpha values may be tested to find the
+#'   optimal setting for a given data set, e.g. by evaluating the mean proportion
+#'   of incongruent sequences across the data set using GetHpltStats().
 #' @param path_out is a user defined path to the folder where the output files
 #'   will be saved.
 #' @return  A set of R lists containing for each nest the putative haplotypes,
@@ -43,10 +52,10 @@
 #' nest_table <- nest_table
 #' seq_table <- sequence_table
 #' path_out <- tempdir()
-#' HpltFind(nest_table, seq_table, path_out)
+#' HpltFind(nest_table, seq_table, alpha=0.8, path_out)
 #' @export
 
-HpltFind <- function(nest_table, seq_table, path_out) {
+HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
 
   # The dada2 sequence table does not use sequences names, but identifies
   # sequence variants by their nuceotide sequence. Here I create a vector for
@@ -54,7 +63,7 @@ HpltFind <- function(nest_table, seq_table, path_out) {
 
   seq_names <- vector("character", length=length(colnames(seq_table)))
 
-  seq_names <- paste("Sequence_", seq(1:length(colnames(seq_table))), sep = "")
+  seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_table))))
 
   colnames(seq_table) <- seq_names
 
@@ -179,8 +188,12 @@ HpltFind <- function(nest_table, seq_table, path_out) {
     P1A <- CP1[[1]]
     P2A <- CP2[[1]]
 
+    # Assign sequences from the remaining chicks to the A or B haplotypes of
+    # the parents
 
     if (No_Chicks > 1) {
+
+      # Assign sequences to P1A or P1B
 
       for (j in 2:No_Chicks) {
 
@@ -189,49 +202,59 @@ HpltFind <- function(nest_table, seq_table, path_out) {
         x <- CP1[[j]] %in% P1A
         y <- P1A %in% CP1[[j]]
 
-        # If proportion of matches in comparisons between CP1[[j]] and P1A > 0.8,
-        # do
+        # If proportion of matches in comparisons between CP1[[j]] and P1A > alpha,
+        # assign the sequences from CP1[[j]] to P1A
 
-        if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > 0.8) {
+        if((length(x)+length(y)) > 0) {
 
-          for (Seq in CP1[[j]]) {
+          if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > alpha) {
 
-            # If Seq is not present in P1A, do
-
-            if (Seq %in% P1A == FALSE) {
-
-              # Append Seq to P1A
-              P1A <- append(P1A, Seq)
-
-              # Append Seq to P1Ainc
-              P1Ainc <- append(P1Ainc, Seq)
-
-            }
-
-          }
-
-        } else {
-
-          # If no sequences were yet assigned to the P1B haplotype, it gets the
-          # sequences from CP1[[j]]
-
-          if (length(P1B)==0) {
-
-            P1B <- CP1[[j]]
-
-          } else {
+            # Assign sequences to P1A: do a logical to test if each sequence in
+            # CP1[[j]] is already in P1A, and if it is not, append it to P1A and
+            # P1Ainc
 
             for (Seq in CP1[[j]]) {
 
-              # If Seq is not present in P1B, do
+              # If Seq is not present in P1A, do
 
-              if (Seq %in% P1B == FALSE) {
+              if (Seq %in% P1A == FALSE) {
 
-                # Append Seq to P1B
-                P1B <- append(P1B, Seq)
+                # Append Seq to P1A
+                P1A <- append(P1A, Seq)
 
-                # Append Seq to P1Binc
-                P1Binc <- append(P1Binc, Seq)
+                # Append Seq to P1Ainc
+                P1Ainc <- append(P1Ainc, Seq)
+
+              }
+
+            }
+
+          } else {
+
+            # If no sequences were yet assigned to the P1B haplotype, it gets the
+            # sequences from CP1[[j]], else do a logical to test if each sequence
+            # in CP1[[j]] is already in P1B, and if it is not, append it to P1B
+            # and P1Binc
+
+            if (length(P1B)==0) {
+
+              P1B <- CP1[[j]]
+
+            } else {
+
+              for (Seq in CP1[[j]]) {
+
+                # If Seq is not present in P1B, do
+
+                if (Seq %in% P1B == FALSE) {
+
+                  # Append Seq to P1B
+                  P1B <- append(P1B, Seq)
+
+                  # Append Seq to P1Binc
+                  P1Binc <- append(P1Binc, Seq)
+
+                }
 
               }
 
@@ -243,7 +266,7 @@ HpltFind <- function(nest_table, seq_table, path_out) {
 
       }
 
-
+      # Assign sequences to P2A or P2B
 
       for (j in 2:No_Chicks) {
 
@@ -252,49 +275,59 @@ HpltFind <- function(nest_table, seq_table, path_out) {
         x <- CP2[[j]] %in% P2A
         y <- P2A %in% CP2[[j]]
 
-        # If proportion of matches in comparisons between CP2[[j]] and P2A > 0.8,
-        # do
+        # If proportion of matches in comparisons between CP2[[j]] and P2A > alpha,
+        # assign the sequences from CP2[[j]] to P2A
 
-        if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > 0.8) {
+        if((length(x)+length(y)) > 0) {
 
-          for (Seq in CP2[[j]]) {
+          if ((length(which(x==TRUE))+length(which(y==TRUE)))/(length(x)+length(y)) > alpha) {
 
-            # If Seq is not present in P2A, do
-
-            if (Seq %in% P2A == FALSE) {
-
-              # Append Seq to P2A
-              P2A <- append(P2A, Seq)
-
-              # Append Seq to P2Ainc
-              P2Ainc <- append(P2Ainc, Seq)
-
-            }
-
-          }
-
-        } else {
-
-          # If no sequences were yet assigned to the P2B haplotype, it gets the
-          # sequences from CP2[[j]]
-
-          if (length(P2B)==0) {
-
-            P2B <- CP2[[j]]
-
-          } else {
+            # Assign sequences to P2A: do a logical to test if each sequence in
+            # CP2[[j]] is already in P2A, and if it is not, append it to P2A and
+            # P2Ainc
 
             for (Seq in CP2[[j]]) {
 
-              # If Seq is not present in P2B, do
+              # If Seq is not present in P2A, do
 
-              if (Seq %in% P2B == FALSE) {
+              if (Seq %in% P2A == FALSE) {
 
-                # Append Seq to P2B
-                P2B <- append(P2B, Seq)
+                # Append Seq to P2A
+                P2A <- append(P2A, Seq)
 
-                # Append Seq to P2Binc
-                P2Binc <- append(P2Binc, Seq)
+                # Append Seq to P2Ainc
+                P2Ainc <- append(P2Ainc, Seq)
+
+              }
+
+            }
+
+          } else {
+
+            # If no sequences were yet assigned to the P2B haplotype, it gets the
+            # sequences from CP2[[j]], else do a logical to test if each sequence
+            # in CP2[[j]] is already in P2B, and if it is not, append it to P2B
+            # and P2Binc
+
+            if (length(P2B)==0) {
+
+              P2B <- CP2[[j]]
+
+            } else {
+
+              for (Seq in CP2[[j]]) {
+
+                # If Seq is not present in P2B, do
+
+                if (Seq %in% P2B == FALSE) {
+
+                  # Append Seq to P2B
+                  P2B <- append(P2B, Seq)
+
+                  # Append Seq to P2Binc
+                  P2Binc <- append(P2Binc, Seq)
+
+                }
 
               }
 
@@ -329,7 +362,7 @@ HpltFind <- function(nest_table, seq_table, path_out) {
 
     ### Fetch the names of the sequences in parent 1 and 2 and match them
     ### against P1A and P1B, P2A and P2B, respectively, and add sequences that
-    ### didn’t match against either the A or the B haplotype to vectors in the
+    ### did not match against either the A or the B haplotype to vectors in the
     ### list Pinc
 
 
@@ -417,7 +450,6 @@ HpltFind <- function(nest_table, seq_table, path_out) {
       if(length(c(P1A,P1B,Pinc[[j]])) > 0) PrInc_P[j] <- length(Pinc[[j]])/(length(c(P1A,P1B,Pinc[[j]]))) else PrInc_P[j] <- NA
 
     }
-
 
 
     ### Finally, output a .Rds file with the mean proportion of incongruent

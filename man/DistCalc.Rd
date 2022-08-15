@@ -108,20 +108,20 @@ If you publish data or results produced with MHCtools, please cite both of
 the following references:
 Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
 Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022.
-MHCtools – an R package for MHC high‐throughput sequencing data: genotyping,
-haplotype and supertype inference, and downstream genetic analyses in non‐model
+MHCtools - an R package for MHC high-throughput sequencing data: genotyping,
+haplotype and supertype inference, and downstream genetic analyses in non-model
 organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
 
 If you calculated Grantham or Sandberg distances, please additionally cite:
 Pierini, F., Lenz, T.L. 2018. Divergent allele advantage at human MHC genes:
-Signatures of past and ongoing selection. Mol. Biol. Evol. 35, 2145–2158.
+Signatures of past and ongoing selection. Mol. Biol. Evol. 35, 2145-2158.
 
 ...and either of the following references:
 Grantham R. 1974. Amino acid difference formula to help explain protein
-evolution. Science 185:862–864.
+evolution. Science 185:862-864.
 Sandberg M, Eriksson L, Jonsson J, Sjostrom M, Wold S. 1998. New chemical
 descriptors relevant for the design of biologically active peptides. A
-multivariate characterization of 87 amino acids. JMed Chem. 41(14):2481–2491.
+multivariate characterization of 87 amino acids. JMed Chem. 41(14):2481-2491.
 }
 \examples{
 seq_file <- sequence_table_fas

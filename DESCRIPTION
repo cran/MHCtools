@@ -1,7 +1,7 @@
 Package: MHCtools
 Type: Package
 Title: Analysis of MHC Data in Non-Model Species
-Version: 1.4.2
+Version: 1.4.3
 Authors@R: person("Jacob", "Roved", email = "jacob.roved@biol.lu.se", 
     role = c("aut", "cre"))
 Description: Twelve tools for bioinformatical processing and analysis of major 
@@ -18,7 +18,7 @@ Description: Twelve tools for bioinformatical processing and analysis of major
     The BootKmeans() function is a wrapper for the kmeans() function of the 'stats'
     package, which allows for bootstrapping. Bootstrapping k-estimates may be
     desirable in data sets, where e.g. BIC- vs. k-values do not produce clear
-    inflection points ("elbows"). BootKmeans() performs multiple runs of kmeans() and 
+    inflection points ("elbows""). BootKmeans() performs multiple runs of kmeans() and 
     estimates optimal k-values based on a user-defined threshold of BIC reduction. The 
     method is an automated and bootstrapped version of visually inspecting elbow plots 
     of BIC- vs. k-values.
@@ -45,11 +45,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: stats, utils, mgcv, grDevices, graphics
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 NeedsCompilation: no
-Packaged: 2022-05-23 17:58:38 UTC; jacobroved
+Packaged: 2022-08-15 17:20:08 UTC; jacobroved
 Author: Jacob Roved [aut, cre]
 Maintainer: Jacob Roved <jacob.roved@biol.lu.se>
 Depends: R (>= 3.5.0)
 Repository: CRAN
-Date/Publication: 2022-05-23 18:10:02 UTC
+Date/Publication: 2022-08-15 17:40:02 UTC
