@@ -4,7 +4,7 @@
 #' clustering models with similar estimated values of k identify similar
 #' clusters. ClusterMatch() also summarizes model stats as means for
 #' different estimated values of k. It is designed to take files produced
-#' by the BootKmeans() function as input, but other data can be analysed
+#' by the BootKmeans() function as input, but other data can be analyzed
 #' if the descriptions of the data formats given below are observed
 #' carefully.
 #'
@@ -35,7 +35,7 @@
 #'   was generated with the BootKmeans() function, a compatible
 #'   k_summary_table was produced in the output path with the file name
 #'   "k_means_bootstrap_summary_stats_<date>.csv".
-#'   If other data is analysed, please observe these formatting requirements:
+#'   If other data is analyzed, please observe these formatting requirements:
 #'   The k_summary_table must contain the data for each kmeans() model in rows
 #'   and as minimum the following columns:
 #'   - k-value (colname: k.est)
@@ -75,7 +75,7 @@
 ClusterMatch <- function(filepath, path_out, k_summary_table) {
 
   # Add a / to the end of the filepath
-  filepath <- paste(filepath,"/",sep="")
+  filepath <- paste0(filepath,"/")
   # Get the file names in the data folder
   file_names <- dir(filepath)
   # Sort the file names by model number
@@ -88,7 +88,7 @@ ClusterMatch <- function(filepath, path_out, k_summary_table) {
   # Load the K-clusters
   for(i in 1:length(file_names)) {
 
-    assign(paste("Kclusters_",i,sep=""), readRDS(file.path(filepath, file_names[i])))
+    assign(paste0("Kclusters_",i), readRDS(file.path(filepath, file_names[i])))
 
   }
 
@@ -100,17 +100,17 @@ ClusterMatch <- function(filepath, path_out, k_summary_table) {
   # Create tables with the cluster assignments of the models that found each number of clusters
   for(i in 1:length(k_estimates)) {
     # create each vector tab<mink>-tab<maxk>
-    assign(paste("tab",k_estimates[i],sep=""), vector())
+    assign(paste0("tab",k_estimates[i]), vector())
     # assign $grp to vector
     for(j in 1:length(which(k_summary_table$k.est==k_estimates[i]))) {
 
-      cluster_ass <- get(paste("Kclusters_",which(k_summary_table$k.est==k_estimates[i])[j],sep=""))
-      assign(paste("tab",k_estimates[i],sep=""), append(get(paste("tab",k_estimates[i],sep="")), cluster_ass))
+      cluster_ass <- get(paste0("Kclusters_",which(k_summary_table$k.est==k_estimates[i])[j]))
+      assign(paste0("tab",k_estimates[i]), append(get(paste0("tab",k_estimates[i])), cluster_ass))
 
     }
 
     # reorganize vector to matrix
-    assign(paste("tab",k_estimates[i],sep=""),matrix(get(paste("tab",k_estimates[i],sep="")), nrow=length(get(paste("tab",k_estimates[i],sep="")))/length(which(k_summary_table$k.est==k_estimates[i])), ncol=length(which(k_summary_table$k.est==k_estimates[i]))))
+    assign(paste0("tab",k_estimates[i]),matrix(get(paste0("tab",k_estimates[i])), nrow=length(get(paste0("tab",k_estimates[i])))/length(which(k_summary_table$k.est==k_estimates[i])), ncol=length(which(k_summary_table$k.est==k_estimates[i]))))
 
   }
 
@@ -133,7 +133,7 @@ ClusterMatch <- function(filepath, path_out, k_summary_table) {
     } else {
 
       # get all pairwise combinations of the columns of the table with the cluster assignments of the models that found k_estimates[i] clusters
-      pwc <- combn(1:length(get(paste("tab",k_estimates[i],sep=""))[1,]), 2, simplify=F)
+      pwc <- combn(1:length(get(paste0("tab",k_estimates[i]))[1,]), 2, simplify=F)
 
       # create a vector that will contain the number of allele assignments that fall outside of the k_estimates[i] most abundant clusters for each pairwise comparison between the models that found k_estimates[i] clusters
       no_ass_low_rank_clust <- vector(length=length(pwc))
@@ -144,21 +144,21 @@ ClusterMatch <- function(filepath, path_out, k_summary_table) {
       for(j in 1:length(pwc)) {
 
         # create a vector with the number of occurrences of each unique cluster in the jth pairwise comparison
-        no_occ <- vector(length=max(attributes(uniquecombs(get(paste("tab",k_estimates[i],sep=""))[,pwc[[j]]]))$index))
+        no_occ <- vector(length=max(attributes(uniquecombs(get(paste0("tab",k_estimates[i]))[,pwc[[j]]]))$index))
         # the function uniquecombs() identifies unique rows in a table, which in the model tables represent unique clusters
         # the occurrences of each unique cluster are specified in the 'index' attribute of uniquecombs()
         # thus the number of occurrences of each unique cluster can be calculated from that
 
-        for(l in 1:max(attributes(uniquecombs(get(paste("tab",k_estimates[i],sep=""))[,pwc[[j]]]))$index)) {
+        for(l in 1:max(attributes(uniquecombs(get(paste0("tab",k_estimates[i]))[,pwc[[j]]]))$index)) {
 
-          no_occ[l] <- length(which(attributes(uniquecombs(get(paste("tab",k_estimates[i],sep=""))[,pwc[[j]]]))$index == l))
+          no_occ[l] <- length(which(attributes(uniquecombs(get(paste0("tab",k_estimates[i]))[,pwc[[j]]]))$index == l))
 
         }
 
         # sum up the total number of allele assignments that fall outside of the k_estimates[i] most abundant clusters in the jth pairwise comparison
         ifelse(length(no_occ) > k_estimates[i], no_ass_low_rank_clust[j] <- sum(sort(no_occ,decreasing=T)[(k_estimates[i]+1):length(no_occ)])*2, no_ass_low_rank_clust[j] <- 0)
         # Calculate the proportion of allele assignments that fall outside of the k_estimates[i] most abundant clusters in the jth pairwise comparison
-        ifelse(length(no_occ) > k_estimates[i], prop_ass_low_rank_clust[j] <- sum(sort(no_occ,decreasing=T)[(k_estimates[i]+1):length(no_occ)])*2/length(get(paste("tab",k_estimates[i],sep=""))[,pwc[[j]]]), prop_ass_low_rank_clust[j] <- 0)
+        ifelse(length(no_occ) > k_estimates[i], prop_ass_low_rank_clust[j] <- sum(sort(no_occ,decreasing=T)[(k_estimates[i]+1):length(no_occ)])*2/length(get(paste0("tab",k_estimates[i]))[,pwc[[j]]]), prop_ass_low_rank_clust[j] <- 0)
 
       }
 
@@ -184,11 +184,11 @@ ClusterMatch <- function(filepath, path_out, k_summary_table) {
 
   # Create a table that summarizes the repeatability of the allele assignment to clusters for each estimated value of k
   CM_summary <- cbind.data.frame(k_estimates, no_models, mean.Tot.withinss.resid, mean.AIC.resid, mean.BIC.resid, mean.prop.delta.BIC, mean.delta.BIC.over.k, mean_no_ass_low_rank_clust, mean_prop_ass_low_rank_clust)
-  rownames(CM_summary) <- c(paste("k=",k_estimates,sep=""))
+  rownames(CM_summary) <- c(paste0("k=",k_estimates))
   colnames(CM_summary) <- c("k.est","No.models","Mean.Tot.withinss.resid","Mean.AIC.resid","Mean.BIC.resid","Mean.prop.delta.BIC","Mean.delta.BIC.over.k","Mean.NoAss.low.rank.clust","Mean.PropAss.low.rank.clust")
   print(CM_summary)
 
   # save the table as .csv
-  write.csv(CM_summary, file=paste(path_out,"/ClusterMatch_summary_stats_",c(format(Sys.Date(),"%Y%m%d")),".csv",sep=""))
+  write.csv(CM_summary, file=paste0(path_out,"/ClusterMatch_summary_stats_",c(format(Sys.Date(),"%Y%m%d")),".csv"))
 
 }

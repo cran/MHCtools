@@ -54,7 +54,7 @@ PapaDiv <- function(parents_table, seq_table, path_out) {
   # The .Rds files will be saved in a sub folder in the output path called
   # "Parent_pairs".
 
-  dir.create(paste(path_out, "/Parent_pairs", sep=""))
+  dir.create(paste0(path_out, "/Parent_pairs"))
 
   # The dada2 sequence table does not use sequences names, but identifies
   # sequence variants by their nuceotide sequence. Here I create a vector for
@@ -62,7 +62,7 @@ PapaDiv <- function(parents_table, seq_table, path_out) {
 
   seq_names <- vector("character", length=length(colnames(seq_table)))
 
-  seq_names <- paste("Sequence_", seq(1:length(colnames(seq_table))), sep = "")
+  seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_table))))
 
   colnames(seq_table) <- seq_names
 
@@ -169,7 +169,7 @@ PapaDiv <- function(parents_table, seq_table, path_out) {
 
     Output <- list(Joint_pair_diversity=c(Joint_div[i]), Prop_matching_seqs=c(Pr_match[i]), Mother_diversity=c(Mother_div[i]), Father_diversity=c(Father_div[i]), Observed_seqs=c(Parent_seqs), Matching_seqs=c(Match_seqs[[1]]), Incongruent_seqs=c(Inc_seqs))
 
-    saveRDS(Output, file=paste(path_out, "/Parent_pairs/Parent_pair_", i, "_", c(format(Sys.Date(),"%Y%m%d")), ".Rds", sep=""))
+    saveRDS(Output, file=paste0(path_out, "/Parent_pairs/Parent_pair_", i, "_", c(format(Sys.Date(),"%Y%m%d")), ".Rds"))
 
   }
 
@@ -182,6 +182,6 @@ PapaDiv <- function(parents_table, seq_table, path_out) {
   rownames(Summary_table) <- seq(1:length(parents_table[,1]))
   colnames(Summary_table) <- c("Mother", "Father", "Mother_diversity", "Father_diversity", "Joint_pair_diversity", "Prop_matching_seqs")
 
-  write.csv(Summary_table,file=paste(path_out,"/Parent_pair_diversity_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep=""))
+  write.csv(Summary_table,file=paste0(path_out,"/Parent_pair_diversity_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
 
 }

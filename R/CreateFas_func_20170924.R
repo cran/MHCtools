@@ -31,7 +31,7 @@ CreateFas <- function(seq_table, path_out) {
 
   # Create empty file
 
-  file.create(paste(path_out, "/Sequences_", c(format(Sys.Date(),"%Y%m%d")), ".fas", sep=""))
+  file.create(paste0(path_out, "/Sequences_", c(format(Sys.Date(),"%Y%m%d")), ".fas"))
 
   # for loop over all the sequences in the data set
 
@@ -39,7 +39,7 @@ CreateFas <- function(seq_table, path_out) {
 
     # Create sequence name line
 
-    seq_name <- paste(">Sequence_", i, sep = "")
+    seq_name <- paste0(">Sequence_", i)
 
     # Extract nucleotide sequence from dada2 sequence table
 
@@ -52,7 +52,7 @@ CreateFas <- function(seq_table, path_out) {
     # Append sequence name line and nucleotide sequence to the file followed by
     # a line break
 
-    cat(paste(lines, "\n", sep = ""), append = T, file = paste(path_out, "/Sequences_", c(format(Sys.Date(),"%Y%m%d")), ".fas", sep=""))
+    cat(paste0(lines, "\n"), append = T, file = paste0(path_out, "/Sequences_", c(format(Sys.Date(),"%Y%m%d")), ".fas"))
 
   }
 

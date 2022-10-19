@@ -8,6 +8,13 @@
 #' and report the proportion of mismatches. The functions GetReplTable() and
 #' GetReplStats() are designed to evaluate the output files.
 #'
+#' Note: ReplMatch() will throw a warning if all samples in a replicate set have
+#' 0 sequences. In that case, the mean_props for that replicate set and the
+#' repeatability for the data set will be NaN, and ReplMatch() will report which
+#' replicate set is problematic and suggest to remove it from the repl_table. If
+#' removing replicate sets, beware that the replicate sets in repl_table must be
+#' numbered consecutively beginning at 1.
+#'
 #' If you publish data or results produced with MHCtools, please cite both of
 #' the following references:
 #' Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
@@ -20,8 +27,8 @@
 #'   replicates in the data set. This table should be organized so that the
 #'   individual names are in the first column (Sample_ID), and the index number
 #'   of the replicate set is in the second column (Replic_set). Replicate sets
-#'   are allowed to contain more than two replicates. It is assumed that
-#'   replicate sets are numbered consecutively beginning at 1.
+#'   may contain more than two replicates, but sets must be numbered consecutively
+#'   beginning at 1.
 #' @param seq_table seq_table is a sequence table as output by the 'dada2'
 #'   pipeline, which has samples in rows and nucleotide sequence variants in
 #'   columns.
@@ -53,12 +60,11 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
   seq_names <- vector("character", length=length(colnames(seq_table)))
 
-  seq_names <- paste("Sequence_", seq(1:length(colnames(seq_table))), sep = "")
+  seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_table))))
 
   colnames(seq_table) <- seq_names
 
-  # Define the number of replicated samples in the data set
-
+  # Define the number of replicate sets in the data set
   No_repl <- max(repl_table$Replic_set)
 
   for (i in 1:No_repl) {
@@ -67,9 +73,7 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
     Repl_samples <- repl_table[repl_table[,"Replic_set"]==i,"Sample_ID"]
 
-
     # Create a list that will contain vectors for each replicate in the replicate set
-
     Repl_seqs <- vector("list", length(Repl_samples))
 
 
@@ -77,15 +81,12 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
       # Create vectors Repl_seqs[[j]] which for each replicate will contain the
       # names of the sequences that are found in each sample
-
       Repl_seqs[[j]] <- factor()
 
       # Fetch column numbers for the sequences in replicate j in the sequence table
-
       z <- which(seq_table[paste(Repl_samples[j]),] > 0)
 
       # Put the names of the seqs in replicate j into Repl_seqs[[j]]
-
       Repl_seqs[[j]] <- seq_names[z]
 
     }
@@ -93,14 +94,11 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
     # Create a list that will contain vectors for the (names of) sequences that
     # are found in either replicate but missing in at least one other
-
     Inc_seqs <- vector("list", length(Repl_samples))
 
     # Create a list that will contain vectors for the (names of) sequences that
     # are matched in all replicates
-
     Match_seqs <- vector("list", length(Repl_samples))
-
 
     for (j in 1:length(Repl_samples)) {
 
@@ -109,7 +107,6 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
       Match_seqs[[j]] <- factor()
 
       # Match the sequences in replicate j against the sequences in the other replicates
-
       for (Seq in Repl_seqs[[j]]) {
 
         match_global <- grepl(Seq, Repl_seqs, perl = TRUE)
@@ -129,7 +126,6 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
     }
 
 
-
     ### Now the proportions of sequences that are incongruent in each replicate
     ### can be calculated, i.e. the sequences that are present in one replicate
     ### but missing in at least one other
@@ -142,6 +138,11 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
     }
 
+    ### If all samples in a replicate set has 0 sequences, i.e. if the length of
+    ### all elements in Repl_seqs is 0, throw a warning that the mean_props for
+    ### that replicate set and the repeatability for the data set will be NaN.
+
+    if(sum(as.numeric(summary(Repl_seqs)[,1])) == 0) {warning(paste0("All samples in replicate set ", i, " have 0 sequences; mean_props will be NaN for this replicate set; global repeatability will be NaN. Suggestion: Remove this replicate set from repl_table."))}
 
     ### Finally, output a .Rds file with the mean proportion of incongruent
     ### sequences, the observed sequence variants, the matched sequence
@@ -155,7 +156,7 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
     Output <- list(Mean_prop_incongr_seqs=c(Mean_PrInc), Matching_seqs=c(Match_seqs[[1]]), Observed_seqs=c(Repl_seqs), Incongruent_seqs=c(Inc_seqs))
 
-    saveRDS(Output, file=paste(path_out,"/Repl_set_", i, "_", c(format(Sys.Date(),"%Y%m%d")), ".Rds", sep=""))
+    saveRDS(Output, file=paste0(path_out,"/Repl_set_", i, "_", c(format(Sys.Date(),"%Y%m%d")), ".Rds"))
 
   }
 

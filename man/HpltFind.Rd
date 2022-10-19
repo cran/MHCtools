@@ -43,14 +43,17 @@ A set of R lists containing for each nest the putative haplotypes,
   sequence table, thus identical sequences will have identical sample names
   in all the output files. These files can be reopened in R e.g. using the
   readRDS() function in the base package.
+  Note: HpltFind() will overwrite any existing files with the same output
+  file names in path_out.
 }
 \description{
 \code{\link{HpltFind}} is designed to automatically infer major
 histocompatibility complex (MHC) haplotypes from the genotypes of parents and
 offspring in families (defined as nests) in non-model species, where MHC
-sequence variants cannot be identified as belonging to individual loci. The
-functions GetHpltTable() and GetHpltStats() are designed to evaluate the
-output files.
+sequence variants cannot be identified as belonging to individual loci.
+HpltFind() assumes that data originated from a diploid species. The functions
+GetHpltTable(), GetHpltStats(), and NestTablesXL() are designed to
+evaluate the output files.
 }
 \details{
 If you publish data or results produced with MHCtools, please cite both of
@@ -68,6 +71,7 @@ path_out <- tempdir()
 HpltFind(nest_table, seq_table, alpha=0.8, path_out)
 }
 \seealso{
-\code{\link{GetHpltTable}}; \code{\link{GetHpltStats}}; for more
+\code{\link{GetHpltTable}}; \code{\link{GetHpltStats}};
+  \code{\link{NestTablesXL}}; \code{\link{CreateHpltOccTable}}; for more
   information about 'dada2' visit <https://benjjneb.github.io/dada2/>
 }

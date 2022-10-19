@@ -13,7 +13,8 @@
 #' further downstream analyses, such as estimation of MHC supertypes. If a
 #' sequence occurrence table is provided as input, the DistCalc() function
 #' furthermore produces a table with the mean distances from all pairwise
-#' comparisons of the sequences in each sample in the data set.
+#' comparisons of the sequences in each sample in the data set. (Note:
+#' The mean distance will be NA for samples that have 0 or 1 sequence(s).)
 #'
 #' Grantham distances and Sandberg distances are calculated as described in
 #' Pierini & Lenz 2018. The Grantham distances produced by DistCalc() are
@@ -122,7 +123,7 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
     seq_names <- vector("character", length=length(colnames(seq_file)))
 
-    seq_names <- paste("Sequence_", seq(1:length(colnames(seq_file))), sep = "")
+    seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_file))))
 
     # Extract the sample names to a new vector
 
@@ -883,11 +884,11 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
       }
 
       # Export the z1-5 matrices as .csv files
-      write.csv(z1_matrix,file=paste(path_out,"/z1_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z2_matrix,file=paste(path_out,"/z2_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z3_matrix,file=paste(path_out,"/z3_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z4_matrix,file=paste(path_out,"/z4_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z5_matrix,file=paste(path_out,"/z5_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
+      write.csv(z1_matrix,file=paste0(path_out,"/z1_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z2_matrix,file=paste0(path_out,"/z2_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z3_matrix,file=paste0(path_out,"/z3_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z4_matrix,file=paste0(path_out,"/z4_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z5_matrix,file=paste0(path_out,"/z5_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
 
     }
 
@@ -900,29 +901,37 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
       z <- which(seq_file[i,] > 0)
 
-      # Create a vector md
+      if(length(z)<2) {
 
-      md <- vector("numeric", length=length(z))
+        mean_dist[i] <- NA
 
-      # Generate a list of all pairwise combinations of the elements in z
+      } else {
 
-      pwc <- combn(sort(z),2,simplify=T)
+        # Create a vector md
 
-      # For each combination in pwc
+        md <- vector("numeric", length=length(z))
 
-      for(j in 1:length(pwc[1,]))  {
+        # Generate a list of all pairwise combinations of the elements in z
 
-        # Extract the distance in each pairwise comparison of the sequences
-        # in seq_list from the dist_matrix, using the numbers from pwc as
-        # indices to extract the values from the matrix
+        pwc <- combn(sort(z),2,simplify=T)
 
-        md[j] <- dist_matrix[pwc[1,j],pwc[2,j]]
+        # For each combination in pwc
+
+        for(j in 1:length(pwc[1,]))  {
+
+          # Extract the distance in each pairwise comparison of the sequences
+          # in seq_list from the dist_matrix, using the numbers from pwc as
+          # indices to extract the values from the matrix
+
+          md[j] <- dist_matrix[pwc[1,j],pwc[2,j]]
+
+        }
+
+        # Calculate the mean of the md vector and add this to the mean_dist vector
+
+        mean_dist[i] <- mean(md)
 
       }
-
-      # Calculate the mean of the md vector and add this to the mean_dist vector
-
-      mean_dist[i] <- mean(md)
 
     }
 
@@ -932,7 +941,7 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
     rownames(mean_dist_tab) <- sample_names
 
-    write.csv(mean_dist_tab,file=paste(path_out,"/mean_dist_table_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
+    write.csv(mean_dist_tab,file=paste0(path_out,"/mean_dist_table_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
 
   }
 
@@ -1680,17 +1689,17 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
       }
 
       # Export the z1-5 matrices as .csv files
-      write.csv(z1_matrix,file=paste(path_out,"/z1_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z2_matrix,file=paste(path_out,"/z2_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z3_matrix,file=paste(path_out,"/z3_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z4_matrix,file=paste(path_out,"/z4_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
-      write.csv(z5_matrix,file=paste(path_out,"/z5_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
+      write.csv(z1_matrix,file=paste0(path_out,"/z1_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z2_matrix,file=paste0(path_out,"/z2_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z3_matrix,file=paste0(path_out,"/z3_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z4_matrix,file=paste0(path_out,"/z4_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
+      write.csv(z5_matrix,file=paste0(path_out,"/z5_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
 
     }
 
   }
 
   # Export the distance matrix as a .csv file
-  write.csv(dist_matrix,file=paste(path_out,"/dist_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv", sep = ""))
+  write.csv(dist_matrix,file=paste0(path_out,"/dist_matrix_", c(format(Sys.Date(),"%Y%m%d")), ".csv"))
 
 }

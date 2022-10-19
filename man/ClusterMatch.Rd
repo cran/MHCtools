@@ -28,7 +28,7 @@ models that produced the clusters in the K-cluster files. If the data used
 was generated with the BootKmeans() function, a compatible
 k_summary_table was produced in the output path with the file name
 "k_means_bootstrap_summary_stats_<date>.csv".
-If other data is analysed, please observe these formatting requirements:
+If other data is analyzed, please observe these formatting requirements:
 The k_summary_table must contain the data for each kmeans() model in rows
 and as minimum the following columns:
 - k-value (colname: k.est)
@@ -63,7 +63,7 @@ The function returns a summary table, which for each estimated number
 clustering models with similar estimated values of k identify similar
 clusters. ClusterMatch() also summarizes model stats as means for
 different estimated values of k. It is designed to take files produced
-by the BootKmeans() function as input, but other data can be analysed
+by the BootKmeans() function as input, but other data can be analyzed
 if the descriptions of the data formats given below are observed
 carefully.
 }

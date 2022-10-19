@@ -34,7 +34,7 @@ CreateSamplesFas <- function(seq_table, path_out) {
   # The individual fasta files will be saved in a subfolder in the output path
   # called "Sample_fastas".
 
-  dir.create(paste(path_out, "/Sample_fastas", sep=""))
+  dir.create(paste0(path_out, "/Sample_fastas"))
 
   # Extract the sample names to a new vector
 
@@ -46,7 +46,7 @@ CreateSamplesFas <- function(seq_table, path_out) {
 
     # Create an empty file
 
-    file.create(paste(path_out, "/Sample_fastas/", sample_names[i], "_", c(format(Sys.Date(),"%Y%m%d")), ".fas", sep=""))
+    file.create(paste0(path_out, "/Sample_fastas/", sample_names[i], "_", c(format(Sys.Date(),"%Y%m%d")), ".fas"))
 
     # Create a vector Sample_seqs that will contain the names of the nucleotide
     # sequences that are found in each sample
@@ -70,7 +70,7 @@ CreateSamplesFas <- function(seq_table, path_out) {
 
       # Create sequence name line
 
-      seq_name <- paste(">Sequence_", z[j], sep = "")
+      seq_name <- paste0(">Sequence_", z[j])
 
       # Extract nucleotide sequence from Sample_seqs
 
@@ -83,11 +83,10 @@ CreateSamplesFas <- function(seq_table, path_out) {
       # Append sequence name line and nucleotide sequence to the file followed
       # by a line break
 
-      cat(paste(lines, "\n", sep = ""), append = T, file = paste(path_out, "/Sample_fastas/", sample_names[i], "_", c(format(Sys.Date(),"%Y%m%d")), ".fas", sep=""))
+      cat(paste0(lines, "\n"), append = T, file = paste0(path_out, "/Sample_fastas/", sample_names[i], "_", c(format(Sys.Date(),"%Y%m%d")), ".fas"))
 
     }
 
   }
 
 }
-

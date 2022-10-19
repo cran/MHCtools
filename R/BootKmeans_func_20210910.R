@@ -107,7 +107,7 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
 
     for(j in 1:5) {
 
-      colnames(z_matrix)[(i-1)*5+j] <- paste("c", i, "_z", j, sep="")
+      colnames(z_matrix)[(i-1)*5+j] <- paste0("c", i, "_z", j)
 
     }
 
@@ -124,9 +124,9 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
   }
 
   # Create folders in the output path that will hold the K-clusters, K-stats tables, and elbow plots for each scan
-  dir.create(paste(path_out,"/Clusters",sep=""))
-  dir.create(paste(path_out,"/Kstats_tables",sep=""))
-  dir.create(paste(path_out,"/plots",sep=""))
+  dir.create(paste0(path_out,"/Clusters"))
+  dir.create(paste0(path_out,"/Kstats_tables"))
+  dir.create(paste0(path_out,"/plots"))
 
   # Create vectors that will hold k estimates and residual sums of squares, AIC, and BIC values for each scan
   k.est <- numeric(length=no_scans)
@@ -143,16 +143,16 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
   for(i in 1:no_scans) {
 
     # create a vector that will contain the k-means stats for each scan
-    assign(paste("Kstats_",i,sep=""), vector())
+    assign(paste0("Kstats_",i), vector())
     # create a temporary list that will contain the cluster assignments for each value of k
-    for(k in 1:max_k) {assign(paste("temp_kclusters_",k,sep=""), list())}
+    for(k in 1:max_k) {assign(paste0("temp_kclusters_",k), list())}
     # create a list that will contain the final cluster assignments for each scan
-    assign(paste("Kclusters_",i,sep=""), list())
+    assign(paste0("Kclusters_",i), list())
     # assign stats and cluster assignments to the respective vector and list
     for(k in 1:max_k) {
       model <- kmeans(x = z_matrix, centers = k, iter.max, nstart, algorithm)
-      assign(paste("temp_kclusters_",k,sep=""), model$cluster)
-      assign(paste("Kstats_",i,sep=""), append(get(paste("Kstats_",i,sep="")), c(
+      assign(paste0("temp_kclusters_",k), model$cluster)
+      assign(paste0("Kstats_",i), append(get(paste0("Kstats_",i)), c(
         k,
         model$totss,
         model$tot.withinss,
@@ -161,30 +161,30 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
         model$tot.withinss + log(length(model$cluster))*ncol(model$centers)*nrow(model$centers))))
     }
     # reformat the Kstats vector to a data frame
-    assign(paste("Kstats_",i,sep=""), data.frame(matrix(get(paste("Kstats_",i,sep="")), nrow=length(get(paste("Kstats_",i,sep="")))/6, byrow=T, dimnames=list(c(paste("k=",c(1:max_k),sep="")), c("k","Total.ss","Tot.within.ss","Between.ss","AIC","BIC")))))
+    assign(paste0("Kstats_",i), data.frame(matrix(get(paste0("Kstats_",i)), nrow=length(get(paste0("Kstats_",i)))/6, byrow=T, dimnames=list(c(paste0("k=",c(1:max_k))), c("k","Total.ss","Tot.within.ss","Between.ss","AIC","BIC")))))
     # estimate the number of clusters as the value of k, where the reduction in BIC is below the desired threshold of the maximal reduction observed
     # note, using min() because the values of diff(BIC) are negative
-    k.est[i] <- which(diff(get(paste("Kstats_",i,sep=""))$BIC) > threshold*min(diff(get(paste("Kstats_",i,sep=""))$BIC)))[1]
+    k.est[i] <- which(diff(get(paste0("Kstats_",i))$BIC) > threshold*min(diff(get(paste0("Kstats_",i))$BIC)))[1]
     # extract the final cluster assignments for the estimated value of k and save as a list
-    assign(paste("Kclusters_",i,sep=""), get(paste("temp_kclusters_",k.est[i],sep="")))
-    saveRDS(get(paste("Kclusters_",i,sep="")), file=paste(path_out,"/Clusters","/Kclusters_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".RData",sep=""))
+    assign(paste0("Kclusters_",i), get(paste0("temp_kclusters_",k.est[i])))
+    saveRDS(get(paste0("Kclusters_",i)), file=paste0(path_out,"/Clusters","/Kclusters_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".RData"))
     # extract residual sums of squares, AIC, and BIC values for each scan
-    Totss.resid[i] <- get(paste("Kstats_",i,sep=""))$Total.ss[k.est[i]]
-    Tot.withinss.resid[i] <- get(paste("Kstats_",i,sep=""))$Tot.within.ss[k.est[i]]
-    Betweenss.resid[i] <- get(paste("Kstats_",i,sep=""))$Between.ss[k.est[i]]
-    AIC.resid[i] <- get(paste("Kstats_",i,sep=""))$AIC[k.est[i]]
-    BIC.resid[i] <- get(paste("Kstats_",i,sep=""))$BIC[k.est[i]]
+    Totss.resid[i] <- get(paste0("Kstats_",i))$Total.ss[k.est[i]]
+    Tot.withinss.resid[i] <- get(paste0("Kstats_",i))$Tot.within.ss[k.est[i]]
+    Betweenss.resid[i] <- get(paste0("Kstats_",i))$Between.ss[k.est[i]]
+    AIC.resid[i] <- get(paste0("Kstats_",i))$AIC[k.est[i]]
+    BIC.resid[i] <- get(paste0("Kstats_",i))$BIC[k.est[i]]
     # extract min and max BIC values for each scan
-    BIC.max[i] <- max(get(paste("Kstats_",i,sep=""))$BIC)
-    BIC.min[i] <- min(get(paste("Kstats_",i,sep=""))$BIC)
+    BIC.max[i] <- max(get(paste0("Kstats_",i))$BIC)
+    BIC.min[i] <- min(get(paste0("Kstats_",i))$BIC)
     # save the Kstats table as .csv
-    write.csv(get(paste("Kstats_",i,sep="")), file=paste(path_out,"/Kstats_tables","/Kstats_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".csv",sep=""))
+    write.csv(get(paste0("Kstats_",i)), file=paste0(path_out,"/Kstats_tables","/Kstats_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".csv"))
     # Create an elbow plot for the selected model in each scan and save as pdf
-    pdf(paste(path_out,"/plots","/k_means_BIC_plot_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".pdf",sep=""), width=5, height=5)
+    pdf(paste0(path_out,"/plots","/k_means_BIC_plot_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".pdf"), width=5, height=5)
     par(mfrow=c(1,1))
-    plot(get(paste("Kstats_",i,sep=""))$k, get(paste("Kstats_",i,sep=""))$BIC, xlab="k", ylab="Bayesian Information Criterion", type="b", main=paste("Model ",i,sep=""), bty="l")
+    plot(get(paste0("Kstats_",i))$k, get(paste0("Kstats_",i))$BIC, xlab="k", ylab="Bayesian Information Criterion", type="b", main=paste0("Model ",i), bty="l")
     abline(v=k.est[i], col="red", lty=2)
-    mtext(paste("k-est = ", k.est[i], sep=""), side=3, col="red")
+    mtext(paste0("k-est = ", k.est[i]), side=3, col="red")
     dev.off()
 
   }
@@ -194,10 +194,10 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
   prop.delta.BIC <- delta.BIC/(BIC.max-BIC.min)
   delta.BIC.over.k <- delta.BIC/k.est
   k_summary <- cbind.data.frame(k.est,Totss.resid,Tot.withinss.resid,Betweenss.resid,AIC.resid,BIC.max,BIC.min,BIC.resid,delta.BIC,prop.delta.BIC,delta.BIC.over.k)
-  rownames(k_summary) <- c(paste("model_",1:no_scans,sep=""))
+  rownames(k_summary) <- c(paste0("model_",1:no_scans))
   print(k_summary)
 
   # save the k_summary table as .csv
-  write.csv(k_summary, file=paste(path_out,"/k_means_bootstrap_summary_stats_",c(format(Sys.Date(),"%Y%m%d")),".csv",sep=""))
+  write.csv(k_summary, file=paste0(path_out,"/k_means_bootstrap_summary_stats_",c(format(Sys.Date(),"%Y%m%d")),".csv"))
 
 }

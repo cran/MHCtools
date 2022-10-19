@@ -3,9 +3,10 @@
 #' \code{\link{HpltFind}} is designed to automatically infer major
 #' histocompatibility complex (MHC) haplotypes from the genotypes of parents and
 #' offspring in families (defined as nests) in non-model species, where MHC
-#' sequence variants cannot be identified as belonging to individual loci. The
-#' functions GetHpltTable() and GetHpltStats() are designed to evaluate the
-#' output files.
+#' sequence variants cannot be identified as belonging to individual loci.
+#' HpltFind() assumes that data originated from a diploid species. The functions
+#' GetHpltTable(), GetHpltStats(), and NestTablesXL() are designed to
+#' evaluate the output files.
 #'
 #' If you publish data or results produced with MHCtools, please cite both of
 #' the following references:
@@ -46,7 +47,10 @@
 #'   sequence table, thus identical sequences will have identical sample names
 #'   in all the output files. These files can be reopened in R e.g. using the
 #'   readRDS() function in the base package.
-#' @seealso \code{\link{GetHpltTable}}; \code{\link{GetHpltStats}}; for more
+#'   Note: HpltFind() will overwrite any existing files with the same output
+#'   file names in path_out.
+#' @seealso \code{\link{GetHpltTable}}; \code{\link{GetHpltStats}};
+#'   \code{\link{NestTablesXL}}; \code{\link{CreateHpltOccTable}}; for more
 #'   information about 'dada2' visit <https://benjjneb.github.io/dada2/>
 #' @examples
 #' nest_table <- nest_table
@@ -68,7 +72,6 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
   colnames(seq_table) <- seq_names
 
   # Define the number of nests in the data set
-
   No_nests <- max(nest_table$Nest)
 
   for (i in 1:No_nests) {
@@ -81,7 +84,6 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
 
 
     # Put the names of the parents into a vector called Parent_names
-
     Parent_names <- c(paste(Nest_samples[1]), paste(Nest_samples[2]))
 
     ##  Note: In the nest table, I list the female followed by the male parent,
@@ -90,7 +92,6 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
 
 
     # Put the names of the chicks into a vector called Chick_names
-
     Chick_names <- 0
 
     for (j in 3:length(Nest_samples)) {
@@ -111,7 +112,6 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
 
     Cinc <- vector("list", No_Chicks)
 
-
     for (j in 1:No_Chicks) {
 
       # Create vectors CP1[[j]] and CP2[[j]] which for each chick will contain
@@ -126,11 +126,9 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
       Cinc[[j]] <- factor()
 
       # Fetch row numbers for the sequences in chick j in the occurrence matrix
-
       z <- which(seq_table[Chick_names[j],] > 0)
 
       # Enter the names of the sequences in chick j into a vector called Cseqs
-
       Cseqs <- seq_names[z]
 
       for (Seq in Cseqs) {
@@ -405,11 +403,9 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
       Punrs[[j]] <- factor()
 
       # Fetch row numbers for the sequences in parent j in the occurrence matrix
-
       z <- which(seq_table[Parent_names[j],] > 0)
 
       # Put the names of the seqs in parent j into Pseqs[[j]]
-
       Pseqs[[j]] <- seq_names[z]
 
       for (Seq in Pseqs[[j]]) {
@@ -460,7 +456,7 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
 
     Put_haplotypes <- list(P1A, P1B, P2A, P2B)
 
-    names(Put_haplotypes) <- c(paste(Parent_names[1], "A", sep=""), paste(Parent_names[1], "B", sep=""), paste(Parent_names[2], "A", sep=""), paste(Parent_names[2], "B", sep=""))
+    names(Put_haplotypes) <- c(paste0(Parent_names[1], "A"), paste0(Parent_names[1], "B"), paste0(Parent_names[2], "A"), paste0(Parent_names[2], "B"))
 
     names(Punrs) <- Parent_names
 
@@ -470,11 +466,11 @@ HpltFind <- function(nest_table, seq_table, alpha=0.8, path_out) {
 
     Inc_Seqs <- list(P1Ainc, P1Binc, P2Ainc, P2Binc, Cinc, Pinc)
 
-    names(Inc_Seqs) <- c(paste(Parent_names[1], "A", sep=""), paste(Parent_names[1], "B", sep=""), paste(Parent_names[2], "A", sep=""), paste(Parent_names[2], "B", sep=""),"Chicks","Parents")
+    names(Inc_Seqs) <- c(paste0(Parent_names[1], "A"), paste0(Parent_names[1], "B"), paste0(Parent_names[2], "A"), paste0(Parent_names[2], "B"),"Chicks","Parents")
 
     Output <- list(Mean_prop_incongr_seqs=c(PrInc), Putative_haplotypes=c(Put_haplotypes), Unresolved_seqs=c(Punrs), Incongruent_seqs=c(Inc_Seqs))
 
-    saveRDS(Output, file=paste(path_out, "/Haplotypes_nest", i, "_", c(format(Sys.Date(),"%Y%m%d")), ".Rds", sep=""))
+    saveRDS(Output, file=paste0(path_out, "/Haplotypes_nest", i, "_", c(format(Sys.Date(),"%Y%m%d")), ".Rds"))
 
   }
 
