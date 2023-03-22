@@ -123,7 +123,10 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
     seq_names <- vector("character", length=length(colnames(seq_file)))
 
-    seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_file))))
+    seq_names <- paste0("Sequence_", formatC(seq(1:length(colnames(seq_file))), width = nchar(length(colnames(seq_file))), format = "d", flag = "0"))
+    # the formatC() expression creates index numbers of the sequences with zeroes
+    # padded in front, so that all numbers have the same number of digits to prevent
+    # RegEx pattern matching between e.g. "Sequence_1" and "Sequence_1X".
 
     # Extract the sample names to a new vector
 

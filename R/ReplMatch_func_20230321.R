@@ -60,13 +60,18 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
   seq_names <- vector("character", length=length(colnames(seq_table)))
 
-  seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_table))))
+  seq_names <- paste0("Sequence_", formatC(seq(1:length(colnames(seq_table))), width = nchar(length(colnames(seq_table))), format = "d", flag = "0"))
+  # the formatC() expression creates index numbers of the sequences with zeroes
+  # padded in front, so that all numbers have the same number of digits. This is
+  # necessary to avoid RegEx pattern matching, e.g. grepl matching "Sequence_1"
+  # and any "Sequence_1X" or "Sequence_1XX".
 
   colnames(seq_table) <- seq_names
 
   # Define the number of replicate sets in the data set
   No_repl <- max(repl_table$Replic_set)
 
+  # Loop over the rpelicate sets
   for (i in 1:No_repl) {
 
     Repl_samples <- factor()
@@ -77,6 +82,7 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
     Repl_seqs <- vector("list", length(Repl_samples))
 
 
+    # Loop over the samples in the replicate set
     for (j in 1:length(Repl_samples)) {
 
       # Create vectors Repl_seqs[[j]] which for each replicate will contain the
@@ -100,15 +106,17 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
     # are matched in all replicates
     Match_seqs <- vector("list", length(Repl_samples))
 
+    # Loop over the samples in the replicate set
     for (j in 1:length(Repl_samples)) {
 
       Inc_seqs[[j]] <- factor()
 
       Match_seqs[[j]] <- factor()
 
-      # Match the sequences in replicate j against the sequences in the other replicates
+      # Loop over the sequences in each sample
       for (Seq in Repl_seqs[[j]]) {
 
+		# Match the sequences in replicate j against the sequences in the other replicates
         match_global <- grepl(Seq, Repl_seqs, perl = TRUE)
 
         if (sum(match_global) == length(match_global)) {
@@ -132,6 +140,7 @@ ReplMatch <- function(repl_table, seq_table, path_out) {
 
     PrInc <- vector("numeric", length(Repl_samples))
 
+    # Loop over the samples in the replicate set
     for (j in 1:length(Repl_samples)) {
 
       if(length(Repl_seqs[[j]]) > 0) PrInc[j] <- length(Inc_seqs[[j]])/length(Repl_seqs[[j]]) else PrInc[j] <- NA

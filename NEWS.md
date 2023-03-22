@@ -1,5 +1,13 @@
 ## NEWS
 
+### MHCtools Version 1.5.1  
+
+*March 22nd, 2023*  
+
+This update fixes a bug in the ReplMatch() and PapaDiv() functions, which caused an error when matching the occurrence of sequences between samples. Sequences are now named using index numbers of the sequences with zeroes padded in front, e.g. "Sequence_001" to "Sequence_999". This prevents RegEx pattern matching between e.g. "Sequence_1" and "Sequence_1X". This naming concept has been implemented throughout MHCtools, for the sake of consistency. The updated functions are: CreateFas(), CreateSamplesFas(), DistCalc(), HpltFind(), ReplMatch(), and PapaDiv().
+
+In addition, a bug was fixed in the HpltMatch() function, which caused an error when running the function with the setting threshold=NULL. 
+
 ### MHCtools Version 1.5.0  
 
 *October 19th, 2022*  

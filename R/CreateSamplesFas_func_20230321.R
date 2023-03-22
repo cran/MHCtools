@@ -70,7 +70,10 @@ CreateSamplesFas <- function(seq_table, path_out) {
 
       # Create sequence name line
 
-      seq_name <- paste0(">Sequence_", z[j])
+      seq_name <- paste0(">Sequence_", formatC(z[j], width = nchar(length(colnames(seq_table))), format = "d", flag = "0"))
+      # the formatC() expression creates index numbers of the sequences with zeroes
+      # padded in front, so that all numbers have the same number of digits to prevent
+      # RegEx pattern matching between e.g. "Sequence_1" and "Sequence_1X".
 
       # Extract nucleotide sequence from Sample_seqs
 

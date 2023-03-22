@@ -38,7 +38,7 @@
 #' @seealso \code{\link{HpltFind}}; \code{\link{CreateHpltOccTable}};
 #'   \code{\link{NestTablesXL}}
 #' @examples
-#' hplt_occ_matrix <-  hplt_occurrence_matrix
+#' hplt_occ_matrix <- hplt_occurrence_matrix
 #' path_out <- tempdir()
 #' HpltMatch(hplt_occ_matrix, path_out, threshold=NULL)
 #' @export
@@ -64,8 +64,6 @@ HpltMatch <- function(hplt_occ_matrix, path_out, threshold=NULL) {
   # Loop over all the haplotypes
   for (i in 1:(length(hplt_names)-1)) {
 
-    Matches[[i]] <- factor()
-
     # Fetch column numbers for the sequences in hplt i in the hplt_occ_matrix
     z <- which(hplt_occ_matrix[i,] > 0)
 
@@ -87,6 +85,7 @@ HpltMatch <- function(hplt_occ_matrix, path_out, threshold=NULL) {
       if(!is.null(threshold)) {
 
         # If proportion of matches > threshold, append hplt j to Matches[[i]]
+        Matches[[i]] <- factor()
         if(!is.na(hplt_dist_matrix[j,i]) & (hplt_dist_matrix[j,i] > threshold)) Matches[[i]] <- append(Matches[[i]], hplt_names[j])
 
       }

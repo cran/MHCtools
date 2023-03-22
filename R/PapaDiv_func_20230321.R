@@ -62,7 +62,11 @@ PapaDiv <- function(parents_table, seq_table, path_out) {
 
   seq_names <- vector("character", length=length(colnames(seq_table)))
 
-  seq_names <- paste0("Sequence_", seq(1:length(colnames(seq_table))))
+  seq_names <- paste0("Sequence_", formatC(seq(1:length(colnames(seq_table))), width = nchar(length(colnames(seq_table))), format = "d", flag = "0"))
+  # the formatC() expression creates index numbers of the sequences with zeroes
+  # padded in front, so that all numbers have the same number of digits. This is
+  # necessary to avoid RegEx pattern matching, e.g. grepl matching "Sequence_1"
+  # and any "Sequence_1X" or "Sequence_1XX".
 
   colnames(seq_table) <- seq_names
 
