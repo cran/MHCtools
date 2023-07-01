@@ -29,10 +29,15 @@
 #'
 #' The DistCalc() function includes an option for the user to specify which
 #' codons to compare, which is useful e.g. if conducting the analysis only
-#' on codon positions involved in specific functions, such as peptide binding
-#' of an MHC molecule. It also accepts calculating amino acid distances
-#' directly from protein-coding DNA sequences using the standard genetic
-#' code.
+#' on codons involved in specific functions, such as peptide binding of an MHC
+#' molecule. Note: When calculating nucleotide P-distances, codon_pos is applied
+#' directly on the nucl sequences. This allows the user to calculate divergence
+#' in e.g. first, second, or third codon positions. Hence, codon_pos should be
+#' specified as a vector of nucleotide positions when calculating nucleotide
+#' P-distances.
+#'
+#' DistCalc() also accepts calculating amino acid distances directly from
+#' protein-coding DNA sequences using the standard genetic code.
 #'
 #' The DistCalc() function accepts the following characters in the sequences:
 #' Nucleotide sequences: A,T,G,C
@@ -82,8 +87,10 @@
 #'   to TRUE, if Grantham or Sandberg distances are calculated from an alignment
 #'   of nucleotide sequences.
 #' @param codon_pos is optional, a vector of comma separated integers specifying
-#'   which codon positions to include in distance calculations. If omitted,
-#'   distance calculations are made using all codons.
+#'   which codons to include in distance calculations. If omitted, distance
+#'   calculations are made using all codons. Note: When calculating nucleotide
+#'   P-distances, codon_pos should be specified as a vector of nucleotide
+#'   positions.
 #' @param dist_type is used to specify which kind of distances that are
 #'   calculated. It takes the values 'G' for Grantham distances, 'S'  for
 #'   Sandberg distances, or 'P' for p-distances. The argument is optional with
@@ -204,7 +211,7 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
     ### Create a vector seq_list_aa containing all the sequences in seq_file translated to amino acids
 
-    if(isTRUE(aa_dist)) {
+    if(isTRUE(aa_dist) & input_seq == "nucl") {
 
       seq_list_aa <- list(length=length(seq_list))
 
@@ -420,7 +427,7 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
           # Throw a warning if selected codons exceed amino acid sequence length
 
-          if(max(codon_pos) > max(lengths(seq_list_aa))) {
+          if(max(codon_pos) > max(lengths(seq_list))) {
 
             stop("Selected codons exceed amino acid sequence length.")
 
@@ -1011,7 +1018,7 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
     ### Create a vector seq_list_aa containing all the sequences in the fasta file translated to amino acids
 
-    if(isTRUE(aa_dist)) {
+    if(isTRUE(aa_dist) & input_seq == "nucl") {
 
       seq_list_aa <- list(length=length(seq_file))
 

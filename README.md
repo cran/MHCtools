@@ -40,7 +40,7 @@ The NestTablesXL() function reads the R lists output by the HpltFind() function 
   
 ### Parent pair diversity  
 
-The PapaDiv() function is useful for heritability analyses in non-model species, where one wants to estimate the heritability of MHC diversity. The function calculates the joint diversity in parent pairs, taking into account alleles that are shared between the parents.  
+In studies of mate choice, fitness, and heritability, it can be of interest to analyze similarities and differences between the MHC genotypes of parents in families. The PapaDiv() function calculates the joint diversity in parent pairs, taking into account alleles that are shared between the parents.  
 
 The PapaDiv() function outputs a set of R lists containing for the joint diversity of each parent pair, the proportion of sequences that are shared between the parents, the diversity of each of the parents, the observed sequence variants in each parent, the matched sequence variants, and the incongruent sequence variants in each parent.  
 
@@ -61,7 +61,7 @@ CreateFas() and CreateSamplesFas() are two simple, but useful tools. The CreateF
 ### Citation
   
 If you publish data or results produced with MHCtools, please cite both of the following references: 
-Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran. 
+Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran. https://cran.r-project.org/web/packages/MHCtools/index.html
 Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022. MHCtools - an R package for MHC high-throughput sequencing data: genotyping, haplotype and supertype inference, and downstream genetic analyses in non-model organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645  
 
 ### References  

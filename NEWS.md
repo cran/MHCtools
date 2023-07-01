@@ -1,5 +1,11 @@
 ## NEWS
 
+### MHCtools Version 1.5.2  
+
+*June 30th, 2023*  
+
+This update fixes a bug in the DistCalc() function and introduces a few minor edits in the reference manual.  
+
 ### MHCtools Version 1.5.1  
 
 *March 22nd, 2023*  

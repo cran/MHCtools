@@ -1,13 +1,13 @@
-88a1de03c0073b2ed2a2984aa596aebe *DESCRIPTION
+7aa55422464fda3a458f779dcd1fa9a0 *DESCRIPTION
 454fe9ee1826755b1b35e17c617651ab *LICENSE
 a1430c050d98bb87dd8799b8a31185d2 *NAMESPACE
-9e0c7537f00638a25f7b7dca0b95ee22 *NEWS.md
+31692bee9cb86c806a08a73fd8d9e1b4 *NEWS.md
 40bf4e6df7bd091e2528451b9c5f8c91 *R/BootKmeans_func_20210910.R
 5ae9b38abbec4771a37bbc777ba7967b *R/ClusterMatch_func_20210910.R
 6e0d1b3eb2e5316c6fc55f3a2b0e4ed2 *R/CreateFas_func_20230321.R
 331bdf4acdf56a99336e9c91c1ab89f0 *R/CreateHpltOccTable_func_20221010.R
 cb02439f3a733268bacd8c38a0d5400a *R/CreateSamplesFas_func_20230321.R
-4ac60e89eea1f812436612fae06a0cb3 *R/DistCalc_func_20230321.R
+cb6d97a69132929627fc2b9b117e7e84 *R/DistCalc_func_20230630.R
 279bc1bed9b139569bdde5bb3f41a5d9 *R/GetHpltStats_func_20200915.R
 ac72b0c5379f973cab89703d757a1326 *R/GetHpltTable_func_20200915.R
 c693fe491d32738a8f3d542c04b0a2ba *R/GetReplStats_func_20200914.R
@@ -15,7 +15,7 @@ c693fe491d32738a8f3d542c04b0a2ba *R/GetReplStats_func_20200914.R
 98c1e33279fc3dbe805dfa195f0128d8 *R/HpltFind_func_20230321.R
 409ba52f10e00dc8f3a1235ed8853a2a *R/HpltMatch_func_20230322.R
 851087a26701404ece79d0060bd51748 *R/NestTablesXL_func_20221012.R
-b29b4f14e17ab2fdf9d700fd453d4a6d *R/PapaDiv_func_20230321.R
+ff34f5c2f14b35c349a3c7fb46eaecfc *R/PapaDiv_func_20230630.R
 f2981e8cd7184686db8430252c5094b6 *R/ReplMatch_func_20230321.R
 d4e0bec7423ab4eeea01b801ec376f14 *R/hplt_occurrence_matrix.R
 4b18bd2fb645019696234c6526f5e7a2 *R/k_summary_table.R
@@ -31,7 +31,8 @@ c779d42b4f7a40800dbe703c622c065e *R/z1_matrix.R
 355c119f41caa6c9af049a8877365d07 *R/z3_matrix.R
 67df4e9d7d8de4c68311c35dfb93fcfa *R/z4_matrix.R
 2d660a5dadc63982457c8a1dffe7daf0 *R/z5_matrix.R
-ec3254399f22110f35b9f7ec24cb2d19 *README.md
+dbd53390855e1af4952ef51a9559627b *R/zzz.R
+f463cc6abd4dab530ad431836440f41e *README.md
 b04b03eb20972d6ad3c7d694cd19e911 *data/hplt_occurrence_matrix.rda
 f62ac9e6d3666bbf40e6c9f3d0631bf3 *data/k_summary_table.rda
 b61975620b028c53e032605690c83d8d *data/nest_table.rda
@@ -81,7 +82,7 @@ e39648a64e7fed9bb9ddab025a4ce47d *inst/extdata/ReplMatchOut/Repl_set_4_20200915.
 450a3e9a7bfd9516984de0826b241eae *man/CreateFas.Rd
 aa7fed28333b9d68e950e53d04c18f52 *man/CreateHpltOccTable.Rd
 ecd14eb48d79cd780cb9d141497116ac *man/CreateSamplesFas.Rd
-143fbc9175ba9737051e59b04251dc56 *man/DistCalc.Rd
+69a78072e0c72a6604afb27475d22995 *man/DistCalc.Rd
 ec0e0f1a0c7932e74149e7438108a8c4 *man/GetHpltStats.Rd
 84be44f360950a66bf162bde3fe774c8 *man/GetHpltTable.Rd
 607503f9ad7d2a93c6926760d5c17a07 *man/GetReplStats.Rd
@@ -89,7 +90,7 @@ ec0e0f1a0c7932e74149e7438108a8c4 *man/GetHpltStats.Rd
 671610c340540f65c01b6e1ea6c15422 *man/HpltFind.Rd
 cf57c99afee8ebb47f85ff23a0af53e8 *man/HpltMatch.Rd
 ff2a2b46f15569f7ca1051a9c900ad17 *man/NestTablesXL.Rd
-cc28a5ccda4c3fb0a1d2dd5dd9612b1f *man/PapaDiv.Rd
+ea6c56e0c6a6bcec39ce80da4c8670b8 *man/PapaDiv.Rd
 5be7155d4557b0bda4d25319fe1e5a66 *man/ReplMatch.Rd
 d1da8f9ff6860f6a2d4c94fe1ad29a6b *man/hplt_occurrence_matrix.Rd
 01ca8d322b0647b81ef7331ef3370cda *man/k_summary_table.Rd

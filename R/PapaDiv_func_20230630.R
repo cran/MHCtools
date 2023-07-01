@@ -2,11 +2,17 @@
 #'
 #' \code{\link{PapaDiv}} calculates the joint major histocompatibility complex
 #' (MHC) diversity in parent pairs, taking into account alleles that are shared
-#' between the parents. The joint diversity in parent pairs is useful for
-#' heritability analyses in non-model species, where one wants to estimate the
-#' heritability of MHC diversity. The number of unique alleles in offspring may
-#' not be directly derived from the parental genotypes if some alleles are
-#' shared between the parents.
+#' between the parents. The joint diversity in parent pairs is often of interest
+#' in studies of mate choice, fitness, and heritability.
+#'
+#' The PapaDiv() function outputs a set of R lists containing for the joint
+#' diversity of each parent pair, the proportion of sequences that are shared
+#' between the parents, the diversity of each of the parents, the observed sequence
+#' variants in each parent, the matched sequence variants, and the incongruent
+#' sequence variants in each parent.
+#'
+#' In addition, PapaDiv() produces a summary table with the names of the parents in
+#' a pair, their respective MHC diversities, and the joint parent pair diversity.
 #'
 #' If you publish data or results produced with MHCtools, please cite both of
 #' the following references:
