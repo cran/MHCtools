@@ -31,10 +31,10 @@
 #' codons to compare, which is useful e.g. if conducting the analysis only
 #' on codons involved in specific functions, such as peptide binding of an MHC
 #' molecule. Note: When calculating nucleotide P-distances, codon_pos is applied
-#' directly on the nucl sequences. This allows the user to calculate divergence
-#' in e.g. first, second, or third codon positions. Hence, codon_pos should be
-#' specified as a vector of nucleotide positions when calculating nucleotide
-#' P-distances.
+#' directly on the nucleotide sequences. This allows the user to calculate
+#' divergence in e.g. first, second, or third codon positions. Hence, codon_pos
+#' should be specified as a vector of nucleotide positions when calculating
+#' nucleotide P-distances.
 #'
 #' DistCalc() also accepts calculating amino acid distances directly from
 #' protein-coding DNA sequences using the standard genetic code.
@@ -1501,21 +1501,43 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
         # Create five matrices for outputting z-descriptor values
         # for all sequences in the data set
 
-        z1_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
-        rownames(z1_matrix) <- names(seq_file)
-        colnames(z1_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
-        z2_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
-        rownames(z2_matrix) <- names(seq_file)
-        colnames(z2_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
-        z3_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
-        rownames(z3_matrix) <- names(seq_file)
-        colnames(z3_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
-        z4_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
-        rownames(z4_matrix) <- names(seq_file)
-        colnames(z4_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
-        z5_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
-        rownames(z5_matrix) <- names(seq_file)
-        colnames(z5_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
+        if(is.null(codon_pos)) {
+
+          z1_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
+          rownames(z1_matrix) <- names(seq_file)
+          colnames(z1_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
+          z2_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
+          rownames(z2_matrix) <- names(seq_file)
+          colnames(z2_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
+          z3_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
+          rownames(z3_matrix) <- names(seq_file)
+          colnames(z3_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
+          z4_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
+          rownames(z4_matrix) <- names(seq_file)
+          colnames(z4_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
+          z5_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_list_aa))))
+          rownames(z5_matrix) <- names(seq_file)
+          colnames(z5_matrix) <- as.character(c(1:max(lengths(seq_list_aa))))
+
+        } else {
+
+          z1_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z1_matrix) <- names(seq_file)
+          colnames(z1_matrix) <- as.character(c(1:length(codon_pos)))
+          z2_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z2_matrix) <- names(seq_file)
+          colnames(z2_matrix) <- as.character(c(1:length(codon_pos)))
+          z3_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z3_matrix) <- names(seq_file)
+          colnames(z3_matrix) <- as.character(c(1:length(codon_pos)))
+          z4_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z4_matrix) <- names(seq_file)
+          colnames(z4_matrix) <- as.character(c(1:length(codon_pos)))
+          z5_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z5_matrix) <- names(seq_file)
+          colnames(z5_matrix) <- as.character(c(1:length(codon_pos)))
+
+        }
 
         # Sandberg distance calculation
 
@@ -1580,15 +1602,35 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
         # add z-descriptor values to the z1-5 matrices
 
-        for(i in 1:length(names(seq_file))) {
+        if(is.null(codon_pos)) {
 
-          for(k in 1:max(lengths(seq_list_aa))) {
+          for(i in 1:length(names(seq_file))) {
 
-            z1_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),1]
-            z2_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),2]
-            z3_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),3]
-            z4_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),4]
-            z5_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),5]
+            for(k in 1:max(lengths(seq_list_aa))) {
+
+              z1_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),1]
+              z2_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),2]
+              z3_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),3]
+              z4_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),4]
+              z5_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][k]),5]
+
+            }
+
+          }
+
+        } else {
+
+          for(i in 1:length(names(seq_file))) {
+
+            for(k in 1:length(codon_pos)) {
+
+              z1_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][codon_pos[k]]),1]
+              z2_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][codon_pos[k]]),2]
+              z3_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][codon_pos[k]]),3]
+              z4_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][codon_pos[k]]),4]
+              z5_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_list_aa[[i]][codon_pos[k]]),5]
+
+            }
 
           }
 
@@ -1603,21 +1645,43 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
         # Create five matrices for outputting z-descriptor values
         # for all sequences in the data set
 
-        z1_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
-        rownames(z1_matrix) <- names(seq_file)
-        colnames(z1_matrix) <- as.character(c(1:max(lengths(seq_file))))
-        z2_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
-        rownames(z2_matrix) <- names(seq_file)
-        colnames(z2_matrix) <- as.character(c(1:max(lengths(seq_file))))
-        z3_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
-        rownames(z3_matrix) <- names(seq_file)
-        colnames(z3_matrix) <- as.character(c(1:max(lengths(seq_file))))
-        z4_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
-        rownames(z4_matrix) <- names(seq_file)
-        colnames(z4_matrix) <- as.character(c(1:max(lengths(seq_file))))
-        z5_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
-        rownames(z5_matrix) <- names(seq_file)
-        colnames(z5_matrix) <- as.character(c(1:max(lengths(seq_file))))
+        if(is.null(codon_pos)) {
+
+          z1_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
+          rownames(z1_matrix) <- names(seq_file)
+          colnames(z1_matrix) <- as.character(c(1:max(lengths(seq_file))))
+          z2_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
+          rownames(z2_matrix) <- names(seq_file)
+          colnames(z2_matrix) <- as.character(c(1:max(lengths(seq_file))))
+          z3_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
+          rownames(z3_matrix) <- names(seq_file)
+          colnames(z3_matrix) <- as.character(c(1:max(lengths(seq_file))))
+          z4_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
+          rownames(z4_matrix) <- names(seq_file)
+          colnames(z4_matrix) <- as.character(c(1:max(lengths(seq_file))))
+          z5_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=max(lengths(seq_file))))
+          rownames(z5_matrix) <- names(seq_file)
+          colnames(z5_matrix) <- as.character(c(1:max(lengths(seq_file))))
+
+        } else {
+
+          z1_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z1_matrix) <- names(seq_file)
+          colnames(z1_matrix) <- as.character(c(1:length(codon_pos)))
+          z2_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z2_matrix) <- names(seq_file)
+          colnames(z2_matrix) <- as.character(c(1:length(codon_pos)))
+          z3_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z3_matrix) <- names(seq_file)
+          colnames(z3_matrix) <- as.character(c(1:length(codon_pos)))
+          z4_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z4_matrix) <- names(seq_file)
+          colnames(z4_matrix) <- as.character(c(1:length(codon_pos)))
+          z5_matrix <- as.data.frame(matrix(nrow=length(names(seq_file)),ncol=length(codon_pos)))
+          rownames(z5_matrix) <- names(seq_file)
+          colnames(z5_matrix) <- as.character(c(1:length(codon_pos)))
+
+        }
 
         # Sandberg distance calculation
 
@@ -1682,15 +1746,35 @@ DistCalc <- function(seq_file, path_out, input_fasta=NULL, input_seq="aa", aa_di
 
         # add z-descriptor values to the z1-5 matrices
 
-        for(i in 1:length(names(seq_file))) {
+        if(is.null(codon_pos)) {
 
-          for(k in 1:max(lengths(seq_file))) {
+          for(i in 1:length(names(seq_file))) {
 
-            z1_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),1]
-            z2_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),2]
-            z3_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),3]
-            z4_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),4]
-            z5_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),5]
+            for(k in 1:max(lengths(seq_file))) {
+
+              z1_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),1]
+              z2_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),2]
+              z3_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),3]
+              z4_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),4]
+              z5_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][k]),5]
+
+            }
+
+          }
+
+        } else {
+
+          for(i in 1:length(names(seq_file))) {
+
+            for(k in 1:length(codon_pos)) {
+
+              z1_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][codon_pos[k]]),1]
+              z2_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][codon_pos[k]]),2]
+              z3_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][codon_pos[k]]),3]
+              z4_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][codon_pos[k]]),4]
+              z5_matrix[i,k] <- z_desc_matrix[which(rownames(z_desc_matrix)==seq_file[[i]][codon_pos[k]]),5]
+
+            }
 
           }
 
