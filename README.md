@@ -18,7 +18,7 @@ In MHC data analysis, it is often desirable to group alleles by their physico-ch
 
 As a solution to this problem, the BootKmeans() function offers bootstrapping of k-means clustering analysis for greatly improved confidence in the estimated clusters - i.e., the MHC supertypes. BootKmeans() is a wrapper for the kmeans() function of the stats package and performs multiple runs of kmeans() while estimating optimal k-values based on a set threshold for the step-wise reduction in BIC. The method may be seen as an automated and bootstrapped version of visually inspecting elbow plots of BIC- vs. k-values.
 
-To evaluate which in a set of bootstrapped k-means models is most accurate and/or informative, the ClusterMatch() function offers a tool for evaluating whether different k-means clustering models identify similar clusters, and summarize bootstrap model stats as means for different estimated values of k. ClusterMatch() is designed to take files produced by the BootKmeans() function as input, but other data can be analysed if the descriptions of the required data formats are observed carefully. 
+To evaluate which in a set of bootstrapped k-means models is most accurate and/or informative, the ClusterMatch() function offers a tool for evaluating whether different k-means clustering models identify similar clusters, and summarize bootstrap model stats as means for different estimated values of k. ClusterMatch() is designed to take files produced by the BootKmeans() function as input, but other data can be analyzed if the descriptions of the required data formats are observed carefully. 
   
 ### MHC haplotype inference  
 
@@ -61,13 +61,13 @@ CreateFas() and CreateSamplesFas() are two simple, but useful tools. The CreateF
 ### Citation
   
 If you publish data or results produced with MHCtools, please cite both of the following references: 
-Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran. https://cran.r-project.org/web/packages/MHCtools/index.html
-Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022. MHCtools - an R package for MHC high-throughput sequencing data: genotyping, haplotype and supertype inference, and downstream genetic analyses in non-model organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645  
+Roved, J. (2022). MHCtools: Analysis of MHC data in non-model species. Cran. https://cran.r-project.org/web/packages/MHCtools/index.html
+Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S. Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295). Humana Press. https://doi.org/https://doi.org/10.1007/978-1-0716-3874-3_18  
 
 ### References  
 
-Callahan, B.J., Mcmurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., Holmes, S.P. 2016. DADA2: High-resolution sample inference from Illumina amplicon data. Nat. Methods 13.  
-Grantham R. 1974. Amino acid difference formula to help explain protein evolution. Science 185:862-864.  
-Sandberg M, Eriksson L, Jonsson J, Sjostrom M, Wold S. 1998. New chemical descriptors relevant for the design of biologically active peptides. A multivariate characterization of 87 amino acids. JMed Chem. 41(14):2481-2491.  
+Callahan, B.J., Mcmurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nat. Methods 13.  
+Grantham R. (1974). Amino acid difference formula to help explain protein evolution. Science 185:862-864.  
+Sandberg M, Eriksson L, Jonsson J, Sjostrom M, Wold S. (1998). New chemical descriptors relevant for the design of biologically active peptides. A multivariate characterization of 87 amino acids. JMed Chem. 41(14):2481-2491.  
   
 *Copyright Jacob Roved*  

@@ -10,11 +10,10 @@
 #'
 #' If you publish data or results produced with MHCtools, please cite both of
 #' the following references:
-#' Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
-#' Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022.
-#' MHCtools - an R package for MHC high-throughput sequencing data: genotyping,
-#' haplotype and supertype inference, and downstream genetic analyses in non-model
-#' organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
+#' Roved, J. (2022). MHCtools: Analysis of MHC data in non-model species. Cran.
+#' Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S.
+#' Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295).
+#' Humana Press. https://doi.org/https://doi.org/10.1007/978-1-0716-3874-3_18
 #'
 #' @param filepath a user defined path to a folder that contains the set of
 #'   K-cluster files to be matched against each other. The algorithm will attempt
@@ -23,7 +22,7 @@
 #'   function, such a folder (named Clusters) was created by the algorithm in the
 #'   output path given by the user.
 #'   Each K-cluster file should correspond to the model$cluster object in kmeans()
-#'   saved as a .Rdata file. Such files are generated as part of the output from
+#'   saved as a .RData file. Such files are generated as part of the output from
 #'   BootKmeans(). ClusterMatch() assumes that the file names contain the string
 #'   "model_" followed by a model number, which must match the corresponding row
 #'   numbers in k_summary_table. If the data used was generated with the
@@ -88,7 +87,7 @@ ClusterMatch <- function(filepath, path_out, k_summary_table) {
   # Load the K-clusters
   for(i in 1:length(file_names)) {
 
-    assign(paste0("Kclusters_",i), readRDS(file.path(filepath, file_names[i])))
+    assign(paste0("Kclusters_",i), load(file.path(filepath, file_names[i])))
 
   }
 

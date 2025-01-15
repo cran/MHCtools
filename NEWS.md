@@ -1,5 +1,16 @@
 ## NEWS
 
+### MHCtools Version 1.5.4  
+
+*January 15th, 2025*  
+
+This update fixed a bug in the BootKmeans() function that caused an error when users tried to load the saved .RData cluster files using the load() function.  
+
+In addition, a couple of notes were added to the description of BootKmeans() in the reference manual. 
+
+The citation details were updated with the following:
+Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S. Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295). Humana Press. https://doi.org/https://doi.org/10.1007/978-1-0716-3874-3_18
+
 ### MHCtools Version 1.5.3  
 
 *July 8th, 2023*  
@@ -71,7 +82,7 @@ This update fixes a bug in the DistCalc() function, which caused an error when a
 
 **The BootKmeans() and ClusterMatch() functions**  
 In this update, two new functions BootKmeans() and ClusterMatch() have been added. In MHC data analysis, it is often desirable to group alleles by their physico-chemical properties, as MHC receptors with similar properties share the repertoire of peptides they can bind. From a functional immunological perspective, alleles with similar properties may therefore be regarded as belonging to the same supertypes, which in many cases can simplify statistical analyses by reducing the number of independent variables and increase statistical power as more samples will share supertypes compared to alleles. Inference of MHC supertypes has traditionally been carried out by k-means clustering analysis on a set of z-descriptors of the physico-chemical properties of the amino acid sequences. However, the inference of relevant clusters is not always straightforward, since MHC data sets do not always produce clear inflection points (e.g. the elbow in an elbow plot). The BootKmeans() function is a wrapper for the kmeans() function of the stats package, which allows for bootstrapping of a k-means clustering analysis. BootKmeans() performs multiple runs of kmeans() and estimates optimal k-values based on a user-defined threshold of BIC reduction. The method may be seen as an automated and bootstrapped version of visually inspecting elbow plots of BIC- vs. k-values.
-To evaluate which of the bootstrapped k-means models is most accurate and/or informative, the ClusterMatch() function offers a tool for evaluating whether different k-means clustering models identify similar clusters, and summarize bootstrap model stats as means for different estimated values of k. ClusterMatch() is designed to take files produced by the BootKmeans() function as input, but other data can be analysed if the descriptions of the required data formats are observed carefully. 
+To evaluate which of the bootstrapped k-means models is most accurate and/or informative, the ClusterMatch() function offers a tool for evaluating whether different k-means clustering models identify similar clusters, and summarize bootstrap model stats as means for different estimated values of k. ClusterMatch() is designed to take files produced by the BootKmeans() function as input, but other data can be analyzed if the descriptions of the required data formats are observed carefully. 
 
 ### MHCtools Version 1.3.0  
 

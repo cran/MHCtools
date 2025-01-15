@@ -1,7 +1,7 @@
 Package: MHCtools
 Type: Package
 Title: Analysis of MHC Data in Non-Model Species
-Version: 1.5.3
+Version: 1.5.4
 Authors@R: person("Jacob", "Roved", email = "jacob.roved@biol.lu.se", 
     role = c("aut", "cre"))
 Description: Fifteen tools for bioinformatics processing and analysis of major 
@@ -32,7 +32,7 @@ Description: Fifteen tools for bioinformatics processing and analysis of major
     The ClusterMatch() function is a tool for evaluating whether different k-means() 
     clustering models identify similar clusters, and summarize bootstrap model stats as 
     means for different estimated values of k. It is designed to take files produced by 
-    the BootKmeans() function as input, but other data can be analysed if the 
+    the BootKmeans() function as input, but other data can be analyzed if the 
     descriptions of the required data formats are observed carefully.
     The PapaDiv() function compares parent pairs in the data set and calculate their 
     joint MHC diversity, taking into account sequence variants that occur in both 
@@ -53,11 +53,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: stats, utils, mgcv, grDevices, graphics, openxlsx
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2023-07-08 12:57:30 UTC; jacobroved
+Packaged: 2025-01-15 13:35:47 UTC; jacobroved
 Author: Jacob Roved [aut, cre]
 Maintainer: Jacob Roved <jacob.roved@biol.lu.se>
 Depends: R (>= 3.5.0)
 Repository: CRAN
-Date/Publication: 2023-07-08 13:10:02 UTC
+Date/Publication: 2025-01-15 13:50:02 UTC

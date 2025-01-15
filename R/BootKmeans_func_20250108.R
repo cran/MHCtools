@@ -29,11 +29,10 @@
 #'
 #' If you publish data or results produced with MHCtools, please cite both of
 #' the following references:
-#' Roved, J. 2022. MHCtools: Analysis of MHC data in non-model species. Cran.
-#' Roved, J., Hansson, B., Stervander, M., Hasselquist, D., & Westerdahl, H. 2022.
-#' MHCtools - an R package for MHC high-throughput sequencing data: genotyping,
-#' haplotype and supertype inference, and downstream genetic analyses in non-model
-#' organisms. Molecular Ecology Resources. https://doi.org/10.1111/1755-0998.13645
+#' Roved, J. (2022). MHCtools: Analysis of MHC data in non-model species. Cran.
+#' Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S.
+#' Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295).
+#' Humana Press. https://doi.org/https://doi.org/10.1007/978-1-0716-3874-3_18
 #'
 #' @param z1_matrix a matrix with numerical values of the first z-descriptor for
 #'   each amino acid position in all sequences in the data set.
@@ -65,12 +64,19 @@
 #' @param path_out a user defined path to the folder where the output files
 #'   will be saved.
 #' @return The function produces three folders in path_out, which contain for
-#'   each scan the estimated k-clusters saved as .Rdata files, an elbow plot saved
+#'   each scan the estimated k-clusters saved as .RData files, an elbow plot saved
 #'   as .pdf, and a stats summary table saved as a .csv file. In path_out a summary
 #'   of all scans performed in the bootstrap run is also saved as .csv. This table
 #'   is also shown in the console.
 #'   Should alternative elbow plots be desired, they may be produced manually with
 #'   the stats presented in the summary tables for each scan.
+#' @note If z-matrices were generated with the DistCalc() function, please make sure
+#'   to load the z-matrices from the .csv files exported by DistCalc(). Calling e.g.
+#'   'z1_matrix' without loading the exported tables will engage the default test
+#'   data set in MHCtools.
+#' @note Setting max_k too high can cause kmeans to fail with the error "more cluster
+#'   centers than distinct data points" - this problem can be solved by reducing
+#'   max_k.
 #' @note AIC and BIC are calculated from the kmeans model objects by the following
 #'   formulae:
 #'   - AIC = D + 2*m*k
@@ -167,7 +173,7 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
     k.est[i] <- which(diff(get(paste0("Kstats_",i))$BIC) > threshold*min(diff(get(paste0("Kstats_",i))$BIC)))[1]
     # extract the final cluster assignments for the estimated value of k and save as a list
     assign(paste0("Kclusters_",i), get(paste0("temp_kclusters_",k.est[i])))
-    saveRDS(get(paste0("Kclusters_",i)), file=paste0(path_out,"/Clusters","/Kclusters_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".RData"))
+    save(list=paste0("Kclusters_",i), file=paste0(path_out,"/Clusters","/Kclusters_model_",i,"_",c(format(Sys.Date(),"%Y%m%d")),".RData"))
     # extract residual sums of squares, AIC, and BIC values for each scan
     Totss.resid[i] <- get(paste0("Kstats_",i))$Total.ss[k.est[i]]
     Tot.withinss.resid[i] <- get(paste0("Kstats_",i))$Tot.within.ss[k.est[i]]
