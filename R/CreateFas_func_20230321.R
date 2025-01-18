@@ -8,7 +8,7 @@
 #' Roved, J. (2022). MHCtools: Analysis of MHC data in non-model species. Cran.
 #' Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S.
 #' Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295).
-#' Humana Press. https://doi.org/https://doi.org/10.1007/978-1-0716-3874-3_18
+#' Humana Press. https://doi.org/10.1007/978-1-0716-3874-3_18
 #'
 #' @param seq_table seq_table is a sequence table as output by the 'dada2'
 #'   pipeline, which has samples in rows and nucleotide sequence variants in

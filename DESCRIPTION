@@ -1,7 +1,7 @@
 Package: MHCtools
 Type: Package
 Title: Analysis of MHC Data in Non-Model Species
-Version: 1.5.4
+Version: 1.5.5
 Authors@R: person("Jacob", "Roved", email = "jacob.roved@biol.lu.se", 
     role = c("aut", "cre"))
 Description: Fifteen tools for bioinformatics processing and analysis of major 
@@ -55,9 +55,9 @@ LazyData: true
 Imports: stats, utils, mgcv, grDevices, graphics, openxlsx
 RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2025-01-15 13:35:47 UTC; jacobroved
+Packaged: 2025-01-17 15:50:21 UTC; jacobroved
 Author: Jacob Roved [aut, cre]
 Maintainer: Jacob Roved <jacob.roved@biol.lu.se>
 Depends: R (>= 3.5.0)
 Repository: CRAN
-Date/Publication: 2025-01-15 13:50:02 UTC
+Date/Publication: 2025-01-18 11:00:06 UTC

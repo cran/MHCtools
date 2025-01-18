@@ -1,5 +1,11 @@
 ## NEWS
 
+### MHCtools Version 1.5.5  
+
+*January 17th, 2025*  
+
+This update fixed an error in the citation info in MHCtools.  
+
 ### MHCtools Version 1.5.4  
 
 *January 15th, 2025*  
@@ -8,8 +14,8 @@ This update fixed a bug in the BootKmeans() function that caused an error when u
 
 In addition, a couple of notes were added to the description of BootKmeans() in the reference manual. 
 
-The citation details were updated with the following:
-Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S. Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295). Humana Press. https://doi.org/https://doi.org/10.1007/978-1-0716-3874-3_18
+The citation details were updated with the following:  
+Roved, J. (2024). MHCtools 1.5: Analysis of MHC sequencing data in R. In S. Boegel (Ed.), HLA Typing: Methods and Protocols (2nd ed., pp. 275–295). Humana Press. https://doi.org/10.1007/978-1-0716-3874-3_18
 
 ### MHCtools Version 1.5.3  
 
