@@ -1,5 +1,13 @@
 ## NEWS
 
+### MHCtools Version 1.6.0  
+
+*February 14th, 2026*  
+
+This update introduces the new SynDist() function to MHCtools. SynDist() performs qualitative and quantitative analyses of synonymous variation among aligned protein-coding DNA sequences, that is, nucleotide substitutions that do not translate to changes in the amino acid sequences due to degeneracy of the genetic code.
+
+The BootKmeans() function was updated with a progress reporter, that prints loop iteration to the console while the function is running.  
+
 ### MHCtools Version 1.5.5  
 
 *January 17th, 2025*  

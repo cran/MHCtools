@@ -2,7 +2,7 @@
 
 ### Welcome to the R package MHCtools  
 
-MHCtools contains fifteen tools for bioinformatics processing and analysis of major histocompatibility complex (MHC) data. The functions are tailored for amplicon sequencing data sets that have been filtered using the dada2 method (Callahan et al. 2016; for more information visit <https://benjjneb.github.io/dada2/>), but even other data sets can be analyzed. Each of the functions are described below. For usage examples, please inspect the help pages for each function.  
+MHCtools contains sixteen tools for bioinformatics processing and analysis of major histocompatibility complex (MHC) data. The functions are tailored for amplicon sequencing data sets that have been filtered using the dada2 method (Callahan et al. 2016; for more information visit <https://benjjneb.github.io/dada2/>), but even other data sets can be analyzed. Each of the functions are described below. For usage examples, please inspect the help pages for each function.  
   
 ### Evolutionary and functional differences between sequences  
 
@@ -12,6 +12,12 @@ The DistCalc() function takes a fasta file or a dada2-style sequence occurrence 
 
 The DistCalc() function includes an option for the user to specify which codons to compare, which is useful e.g. if conducting the analysis only on codons that are involved in specific functions, such as the peptide-binding of an MHC molecule. It also includes an option to calculate amino acid distances directly from protein-coding DNA sequences using the standard genetic code.  
   
+The SynDist() function is a unique tool for performing qualitative and quantitative analyses of synonymous variation among aligned protein-coding DNA sequences, that is, nucleotide substitutions that do not translate to changes in the amino acid sequences due to degeneracy of the genetic code.
+
+The SynDist() function takes a fasta file or a dada2-style sequence occurrence table (with aligned sequences as column names and samples in rows) as input and summarizes synonymous nucleotide variation synonymous nucleotide changes per base and per codon among all pairwise sequence comparisons in the data set. SynDist() can also compute a distance matrix specifying the synonymous nucleotide changes in each pairwise sequence comparison in the data set. Finally, if a dada2-style sequence occurrence table is provided as input, the SynDist() function calculates the mean synonymous variation among all pairwise comparisons of the sequences in each sample in the data set.  
+
+The SynDist() function includes an option for the user to specify which codons to compare. This is useful e.g. if the sequences contain gaps in some codons, which should be excluded from quantitative analysis. 
+
 ### MHC supertype inference 
 
 In MHC data analysis, it is often desirable to group alleles by their physico-chemical properties, as MHC receptors with similar properties share the repertoire of peptides they can bind. From a functional immunological perspective, alleles with similar properties may therefore be regarded as belonging to the same supertypes, which in many cases can be exploited to simplify statistical analyses by reducing the number of independent variables and increase statistical power (i.e., as relatively more samples will share supertypes compared to alleles). Inference of MHC supertypes has traditionally been carried out by k-means clustering analysis on a set of z-descriptors of the physico-chemical properties of the amino acid sequences (Sandberg et al. 1998), and the DistCalc() function described above offers to produce such descriptors from amino acid sequences. However, the inference of relevant clusters of MHC alleles is not always straightforward, since MHC data sets might not always produce clear inflection points (e.g. the elbow in an elbow plot). 

@@ -98,6 +98,7 @@
 #' no_scans=10, max_k=20, iter.max=10, nstart=10, algorithm="Hartigan-Wong",
 #' path_out=path_out)
 #' @importFrom "stats" "kmeans"
+#' @importFrom "utils" "flush.console"
 #' @importFrom "grDevices" "dev.off" "pdf"
 #' @importFrom "graphics" "abline" "mtext" "par" "plot"
 #' @export
@@ -147,6 +148,10 @@ BootKmeans <- function(z1_matrix, z2_matrix, z3_matrix, z4_matrix, z5_matrix, th
   # Run clustering models using the kmeans() function from the 'stats' package
   # estimate the number of clusters from the incremental change in BIC
   for(i in 1:no_scans) {
+
+    # print a progress message in the console for each loop iteration
+    print(paste0("current_scan_", i, "_of_", no_scans))
+    flush.console() # overrides the console buffering function
 
     # create a vector that will contain the k-means stats for each scan
     assign(paste0("Kstats_",i), vector())
